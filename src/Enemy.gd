@@ -59,7 +59,8 @@ func _get_next_task():
 	var next_task
 	if task_queue.empty():
 		next_task = IdleTask.new()
-	next_task = task_queue.pop_front()
+	else:
+		next_task = task_queue.pop_front()
 	next_task.initiate(self)
 	return next_task
 
