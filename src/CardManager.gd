@@ -1,7 +1,5 @@
 extends Node2D
 
-signal activate_card(c)
-
 var visible_cards = []
 
 func _ready():
@@ -10,7 +8,7 @@ func _ready():
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
-		emit_signal("activate_card", consume_card())
+		$"/root/Main/AttackManager".activate_card(consume_card())
 	update_sprites()
 
 func consume_card():
