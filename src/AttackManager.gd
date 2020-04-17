@@ -6,8 +6,9 @@ var attack_names = ["normal_spell", "custom_spell"]
 var direction : Vector2
 
 func _ready():
-	load(attack_scenes)
-	$CardManager.connect("activate_card", self, "_react")
+	pass
+	# load(attack_scenes)
+	# $CardManager.connect("activate_card", self, "_react")
 
 #func _process(delta):
 #	pass
