@@ -1,9 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://src/AttackManager.gd" type="Script" id=1]
-[ext_resource path="res://src/attacks/BasicAttack.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/attacks/CustomAttack.tscn" type="PackedScene" id=3]
 
 [node name="AttackManager" type="Node2D"]
 script = ExtResource( 1 )
-attack_scenes = [ ExtResource( 2 ), ExtResource( 3 ) ]
