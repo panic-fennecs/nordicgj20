@@ -26,3 +26,4 @@ shape = SubResource( 1 )
 [node name="MouseIndicator" parent="." instance=ExtResource( 2 )]
 
 [node name="HealthBar" parent="." instance=ExtResource( 3 )]
+[connection signal="health_changed" from="." to="HealthBar" method="_on_health_changed"]
