@@ -33,10 +33,13 @@ func _physics_process(delta: float) -> void:
 	_velocity = move_and_slide(_velocity)
 	_velocity *= DRAG
 	
-func _get_damage(damage):
-	health -= damage
+func _set_health(new_health):
+	health = new_health
 	emit_signal("health_changed", health)
 	_try_loose()
+
+func _get_damage(damage):
+	_set_health(health - damage)
 
 func _try_loose():
 	if health < 0:
