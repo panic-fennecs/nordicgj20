@@ -2,7 +2,7 @@ extends Node2D
 
 export var attack_scenes = []
 
-var attack_names = ["normal_spell", "custom_spell"]
+var attack_names = ["normal", "custom"]
 var direction : Vector2
 
 func _ready():
@@ -13,7 +13,7 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func _react(active_spell):
+func activate_card(active_spell):
 	for i in range(attack_names.size()):
 		if active_spell == attack_names[i]:
 			var attack_instance = attack_scenes[i].instance()
