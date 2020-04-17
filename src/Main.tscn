@@ -10,6 +10,7 @@
 [ext_resource path="res://src/AttackManager.tscn" type="PackedScene" id=8]
 
 [node name="Main" type="Node2D"]
+script = ExtResource( 6 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 
