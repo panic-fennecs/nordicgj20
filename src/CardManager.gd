@@ -12,7 +12,8 @@ func _process(delta):
 	update_sprites()
 
 func consume_card():
-	var t = visible_cards.remove(0)
+	var t = visible_cards[0]
+	visible_cards.remove(0)
 	visible_cards.append(generate_card())
 	return t
 
