@@ -7,6 +7,7 @@ export var _speed: float = 400
 
 func setup(direction: Vector2):
 	_direction = direction
+	print(direction)
 	_normalized_direction = direction.normalized()
 	
 func _ready():
@@ -18,7 +19,6 @@ func _physics_process(delta):
 	if collision:
 		var collider = collision.get_collider()
 		if collider:
-			collider.queue_free()
 			queue_free()
 
 #func _process(delta):
