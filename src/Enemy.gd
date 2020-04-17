@@ -31,7 +31,7 @@ class AttackTask:
 	var _speed
 	var _hit_range
 
-	func _init(target, speed=3.0, hit_range=5.0):
+	func _init(target, speed=7.0, hit_range=50.0):
 		self._target = target
 		self._speed = speed
 		self._hit_range = hit_range
@@ -46,7 +46,30 @@ class AttackTask:
 			return self._target.position
 
 	func finished(enemy):
-		return enemy.position.distance_squared_to(self.get_target_position()) <= self._hit_range
+		return enemy.position.distance_squared_to(self.get_target_position()) <= self._hit_range * self._hit_range
+
+class PatrolTask:
+	var _target_points
+	var _speed
+	var _target_index
+
+	func _init(target_points=null, speed=40.0):
+		self._target_points = target_points
+		self._speed = speed
+		self._target_index = 0
+
+	func initiate(enemy):
+		if self._target_points == null:
+			self._target_points = [enemy.position, enemy.position + Vector2(100.0, 0.0)]
+
+	func finished(enemy):
+		return false
+
+	func get_target_point():
+		return self._target_points[self._target_index]
+
+	func next_target():
+		self._target_index = (self._target_index + 1) % len(self._target_points)
 
 var task_queue = []
 var current_task
@@ -55,10 +78,13 @@ var speed = Vector2()
 func _ready():
 	self.do_task(IdleTask.new(1.0, null, 100.0, 0.2))
 
+func _get_default_task():
+	return IdleTask.new()
+
 func _get_next_task():
 	var next_task
 	if task_queue.empty():
-		next_task = IdleTask.new()
+		next_task = self._get_default_task()
 	else:
 		next_task = task_queue.pop_front()
 	next_task.initiate(self)
@@ -74,6 +100,7 @@ func queue_task(task):
 func _physics_process(delta):
 	if current_task.finished(self):
 		current_task = _get_next_task()
+		print('attack over')
 	_process_current_task(delta)
 
 func _process_current_task(delta):
@@ -81,6 +108,8 @@ func _process_current_task(delta):
 		self._process_idle_task(delta)
 	elif current_task is AttackTask:
 		self._process_attack_task(delta)
+	elif current_task is PatrolTask:
+		self._process_patrol_task(delta)
 
 	self.position += self.speed * delta
 
@@ -96,7 +125,13 @@ func _process_idle_task(delta):
 	speed_update = speed_update.clamped(current_task._speed)
 	speed += speed_update
 
-func _process_attack_task(delta):
+func _process_attack_task(_delta):
 	var speed_update = (current_task.get_target_position() - self.position) - self.speed
 	speed_update = speed_update.clamped(current_task._speed)
 	speed += speed_update
+
+func _process_patrol_task(delta):
+	var step_length = min(self.current_task._speed, self.position.distance_to(self.current_task.get_target_point()) / delta)
+	speed = (self.current_task.get_target_point() - self.position).normalized() * step_length
+	if self.current_task.get_target_point().distance_squared_to(self.position) < (self.current_task._speed * self.current_task._speed * delta):
+		self.current_task.next_target()
