@@ -1,0 +1,102 @@
+extends Node2D
+
+class IdleTask:
+	var _speed
+	var _center
+	var _radius
+	var _target
+	var _counter
+	var _update_target_interval
+	
+	func _init(speed=1.0, center=null, radius=10.0, update_target_interval=1.0):
+		self._speed = speed
+		self._center = center
+		self._radius = radius
+		self._counter = 0.0
+		self._update_target_interval = update_target_interval
+
+	func initiate(enemy):
+		if self._center == null:
+			self._center = enemy.position
+		self.update_target()
+
+	func finished(enemy):
+		return false
+
+	func update_target():
+		self._target = self._center + Vector2(randf()-0.5, randf()-0.5).normalized() * randf() * self._radius
+
+class AttackTask:
+	var _target
+	var _speed
+	var _hit_range
+
+	func _init(target, speed=3.0, hit_range=5.0):
+		self._target = target
+		self._speed = speed
+		self._hit_range = hit_range
+
+	func initiate(enemy):
+		pass
+
+	func get_target_position():
+		if self._target is Vector2:
+			return self._target
+		else:
+			return self._target.position
+
+	func finished(enemy):
+		return enemy.position.distance_squared_to(self.get_target_position()) <= self._hit_range
+
+var task_queue = []
+var current_task
+var speed = Vector2()
+
+func _ready():
+	self.do_task(IdleTask.new(1.0, null, 100.0, 0.2))
+
+func _get_next_task():
+	var next_task
+	if task_queue.empty():
+		next_task = IdleTask.new()
+	else:
+		next_task = task_queue.pop_front()
+	next_task.initiate(self)
+	return next_task
+
+func do_task(task):
+	current_task = task
+	current_task.initiate(self)
+
+func queue_task(task):
+	self.task_queue.append(task)
+
+func _physics_process(delta):
+	if current_task.finished(self):
+		current_task = _get_next_task()
+	_process_current_task(delta)
+
+func _process_current_task(delta):
+	if current_task is IdleTask:
+		self._process_idle_task(delta)
+	elif current_task is AttackTask:
+		self._process_attack_task(delta)
+
+	self.position += self.speed * delta
+
+func _process_idle_task(delta):
+	# change target
+	current_task._counter += delta
+	if current_task._counter > current_task._update_target_interval:
+		current_task._counter = 0
+		current_task.update_target()
+
+	# update speed
+	var speed_update = (current_task._target - self.position) - self.speed
+	speed_update = speed_update.clamped(current_task._speed)
+	speed += speed_update
+
+func _process_attack_task(delta):
+	var speed_update = (current_task.get_target_position() - self.position) - self.speed
+	speed_update = speed_update.clamped(current_task._speed)
+	speed += speed_update
