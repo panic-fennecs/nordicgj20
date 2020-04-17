@@ -9,7 +9,10 @@ var _velocity: Vector2 = Vector2.ZERO
 func _input(event) -> void:
 	if event is InputEventMouseButton:
 		if event.is_pressed():
-			print("mouse attack ", get_global_mouse_position())
+			print("todo @robin ", $MouseIndicator.rect_position.normalized())
+
+func _process(delta: float) -> void:
+	$MouseIndicator.rect_global_position = get_global_mouse_position()
 
 func _physics_process(delta: float) -> void:
 	var direction: Vector2 = Vector2.ZERO
