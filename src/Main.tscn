@@ -1,11 +1,15 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/CardManager.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/World.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/EnemyManager.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/Camera2D.gd" type="Script" id=5]
+[ext_resource path="res://src/Main.gd" type="Script" id=6]
+[ext_resource path="res://src/Time.gd" type="Script" id=7]
 
 [node name="Main" type="Node2D"]
+script = ExtResource( 6 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 
@@ -16,3 +20,9 @@
 [node name="EnemyManager" parent="." instance=ExtResource( 4 )]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+current = true
+smoothing_enabled = true
+script = ExtResource( 5 )
+
+[node name="Time" type="Node2D" parent="."]
+script = ExtResource( 7 )
