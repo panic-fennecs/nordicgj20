@@ -1,8 +1,11 @@
 extends Node2D
 
-export var attack_scenes = []
+var attack_scenes = [
+	preload("res://src/attacks/BasicAttack.tscn"),
+	preload("res://src/attacks/CustomAttack.tscn")
+]
 
-var attack_names = ["normal_spell", "custom_spell"]
+var attack_names = ["normal", "custom"]
 var direction : Vector2
 
 func _ready():
