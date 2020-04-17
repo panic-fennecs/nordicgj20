@@ -76,7 +76,7 @@ var current_task
 var speed = Vector2()
 
 func _ready():
-	self.do_task(IdleTask.new(1.0, null, 100.0, 0.2))
+	self.do_task(self._get_default_task())
 
 func _get_default_task():
 	return IdleTask.new()

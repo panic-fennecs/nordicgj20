@@ -15,7 +15,6 @@ func _input(event) -> void:
 
 func _process(delta: float) -> void:
 	$MouseIndicator.rect_global_position = get_global_mouse_position()
-	_get_damage(delta * 0.1)
 
 func _physics_process(delta: float) -> void:
 	var direction: Vector2 = Vector2.ZERO
