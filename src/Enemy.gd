@@ -31,7 +31,7 @@ class AttackTask:
 	var _speed
 	var _hit_range
 
-	func _init(target, speed=7.0, hit_range=50.0):
+	func _init(target, speed=300.0, hit_range=50.0):
 		self._target = target
 		self._speed = speed
 		self._hit_range = hit_range
@@ -126,9 +126,8 @@ func _process_idle_task(delta):
 	speed += speed_update
 
 func _process_attack_task(_delta):
-	var speed_update = (current_task.get_target_position() - self.position) - self.speed
-	speed_update = speed_update.clamped(current_task._speed)
-	speed += speed_update
+	speed = (current_task.get_target_position() - self.position) / _delta
+	speed = speed.clamped(current_task._speed)
 
 func _process_patrol_task(delta):
 	var step_length = min(self.current_task._speed, self.position.distance_to(self.current_task.get_target_point()) / delta)
