@@ -100,7 +100,6 @@ func queue_task(task):
 func _physics_process(delta):
 	if current_task.finished(self):
 		current_task = _get_next_task()
-		print('attack over')
 	_process_current_task(delta)
 
 func _process_current_task(delta):

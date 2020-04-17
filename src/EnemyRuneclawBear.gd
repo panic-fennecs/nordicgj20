@@ -15,7 +15,6 @@ func _physics_process(delta):
 	var player = $"/root/Main/Player"
 	if cooldown <= 0:
 		if player.position.distance_squared_to(self.position) < ATTACK_TRIGGER_RANGE*ATTACK_TRIGGER_RANGE:
-			print('attack')
 			self.do_task(AttackTask.new($"/root/Main/Player"))
 			cooldown = ATTACK_COOLDOWN
 	else:
