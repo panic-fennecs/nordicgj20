@@ -20,7 +20,7 @@ class IdleTask:
 			self._center = enemy.position
 		self.update_target()
 
-	func finished(enemy):
+	func finished(_enemy):
 		return false
 
 	func update_target():
@@ -30,13 +30,17 @@ class AttackTask:
 	var _target
 	var _speed
 	var _hit_range
+	var _max_attack_range
+	var _range_travelled
 
-	func _init(target, speed=300.0, hit_range=50.0):
+	func _init(target, speed=150.0, hit_range=50.0, max_attack_range=null):
 		self._target = target
 		self._speed = speed
 		self._hit_range = hit_range
+		self._max_attack_range = max_attack_range
+		self._range_travelled = 0.0
 
-	func initiate(enemy):
+	func initiate(_enemy):
 		pass
 
 	func get_target_position():
@@ -46,6 +50,8 @@ class AttackTask:
 			return self._target.position
 
 	func finished(enemy):
+		if self._max_attack_range != null and self._range_travelled >= self._max_attack_range:
+			return true
 		return enemy.position.distance_squared_to(self.get_target_position()) <= self._hit_range * self._hit_range
 
 class PatrolTask:
@@ -62,7 +68,7 @@ class PatrolTask:
 		if self._target_points == null:
 			self._target_points = [enemy.position, enemy.position + Vector2(100.0, 0.0)]
 
-	func finished(enemy):
+	func finished(_enemy):
 		return false
 
 	func get_target_point():
@@ -124,9 +130,10 @@ func _process_idle_task(delta):
 	speed_update = speed_update.clamped(current_task._speed)
 	speed += speed_update
 
-func _process_attack_task(_delta):
-	speed = (current_task.get_target_position() - self.position) / _delta
+func _process_attack_task(delta):
+	speed = (current_task.get_target_position() - self.position) / delta
 	speed = speed.clamped(current_task._speed)
+	self.current_task._range_travelled += current_task._speed * delta
 
 func _process_patrol_task(delta):
 	var step_length = min(self.current_task._speed, self.position.distance_to(self.current_task.get_target_point()) / delta)
