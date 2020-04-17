@@ -1,1 +1,1 @@
-# nordicgj20
+# submission for the nordicgj20
