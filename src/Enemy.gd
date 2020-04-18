@@ -54,7 +54,10 @@ class AttackTask:
 	func finished(enemy):
 		if self._max_attack_range != null and self._range_travelled >= self._max_attack_range:
 			return true
-		return enemy.position.distance_squared_to(self.get_target_position()) <= self._hit_range * self._hit_range
+		var player_hit = enemy.position.distance_squared_to(self.get_target_position()) <= self._hit_range * self._hit_range
+		if player_hit:
+			enemy.target_point_found()
+		return player_hit
 
 class PatrolTask:
 	var _target_points
@@ -153,3 +156,6 @@ func inflict_damage(dmg):
 	health -= dmg
 	if health <= 0:
 		die()
+
+func target_point_found():
+	pass
