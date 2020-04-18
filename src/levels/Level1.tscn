@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/enemies/SlimeEnemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/levels/EnemiesSpawner.gd" type="Script" id=2]
+[ext_resource path="res://src/EnemyRuneclawBear.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/World.tscn" type="PackedScene" id=6]
+
+[node name="Level0" type="Node2D"]
+
+[node name="World" parent="." instance=ExtResource( 6 )]
+
+[node name="EnemiesSpawner" type="Node2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="Bear0" parent="EnemiesSpawner" instance=ExtResource( 4 )]
+position = Vector2( -205, -211 )
+
+[node name="Bear3" parent="EnemiesSpawner" instance=ExtResource( 4 )]
+position = Vector2( -216, -67 )
+
+[node name="Bear1" parent="EnemiesSpawner" instance=ExtResource( 4 )]
+position = Vector2( 186, -207 )
+
+[node name="Bear2" parent="EnemiesSpawner" instance=ExtResource( 4 )]
+position = Vector2( 175, -64 )
+
+[node name="SlimeEnemy" parent="EnemiesSpawner" instance=ExtResource( 1 )]
+position = Vector2( 45, -227 )
+
+[node name="SlimeEnemy8" parent="EnemiesSpawner" instance=ExtResource( 1 )]
+position = Vector2( 95, -224 )
+
+[node name="SlimeEnemy5" parent="EnemiesSpawner" instance=ExtResource( 1 )]
+position = Vector2( 3, -233 )
+
+[node name="SlimeEnemy6" parent="EnemiesSpawner" instance=ExtResource( 1 )]
+position = Vector2( -46, -226 )
+
+[node name="SlimeEnemy7" parent="EnemiesSpawner" instance=ExtResource( 1 )]
+position = Vector2( -85, -225 )
+
+[node name="SlimeEnemy2" parent="EnemiesSpawner" instance=ExtResource( 1 )]
+position = Vector2( 103, -104 )
+
+[node name="SlimeEnemy3" parent="EnemiesSpawner" instance=ExtResource( 1 )]
+position = Vector2( -3, -103 )
+
+[node name="SlimeEnemy4" parent="EnemiesSpawner" instance=ExtResource( 1 )]
+position = Vector2( -99, -108 )
