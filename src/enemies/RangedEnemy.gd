@@ -24,7 +24,7 @@ func _process(delta):
 func shoot():
 	var p = EnemyProjectileScene.instance()
 	p.position = position
-	p.speed = ($"/root/Main/Player".position - position).normalized() * BULLET_SPEED
+	p.speed = ($"/root/Main/YSort/Player".position - position).normalized() * BULLET_SPEED
 	$"/root/Main/".add_child(p)
 
 func inflict_damage(dmg):
