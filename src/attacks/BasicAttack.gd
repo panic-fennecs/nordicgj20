@@ -11,6 +11,9 @@ func setup(direction: Vector2):
 	
 func _ready():
 	look_at(global_position + _direction)
+	var player = $"/root/Main/Player"
+	position = player.global_position
+	setup(get_global_mouse_position())
 	
 func _physics_process(delta):
 	var collision = move_and_collide(_normalized_direction * _speed * delta)

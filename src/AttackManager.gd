@@ -1,14 +1,15 @@
 extends Node2D
 
 var attack_scenes = [
-	preload("res://src/attacks/BasicAttack.tscn"),
+	preload("res://src/attacks/ForestAttack.tscn"),
+	preload("res://src/attacks/IslandAttack.tscn"),
 	preload("res://src/attacks/MountainAttack.tscn"),
-	preload("res://src/attacks/ForestAttack.tscn")
+	preload("res://src/attacks/PlainsAttack.tscn"),
+	preload("res://src/attacks/SwampAttack.tscn")
 ]
 
-var attack_names = ["normal", "custom"]
+var attack_names = ["forest", "island", "mountain", "plains", "swamp"]
 var direction : Vector2
-var player : Node2D
 
 func _ready():
 	pass
@@ -19,7 +20,5 @@ func activate_card(active_spell):
 	for i in range(attack_names.size()):
 		if active_spell == attack_names[i]:
 			var attack_instance = attack_scenes[i].instance()
-			player = $"/root/Main/Player"
-			attack_instance.position = player.global_position
+			var player = $"/root/Main/Player"
 			player.add_child(attack_instance)
-			attack_instance.setup(get_global_mouse_position())
