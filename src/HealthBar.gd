@@ -12,7 +12,7 @@ func _on_health_changed(new_health: float):
 	var hue = mix(hue_min, hue_max, health)
 	c = c.from_hsv(hue, saturation, value)
 	$"Indicator".set_frame_color(c)
-	$"Indicator".set_size(Vector2(health * 160, $"Indicator".get_size().y))
+	$"Indicator".set_size(Vector2(health * 80, $"Indicator".get_size().y))
 
 func mix(a, b, n):
 	return a + (b - a) * n
