@@ -9,6 +9,8 @@ func _ready():
 
 func _physics_process(delta):
 	var col = move_and_collide(speed * delta)
-	if col and col.collider.has_method("inflict_damage"):
-		col.collider.inflict_damage(DAMAGE)
+	if col:
+		if col.collider.has_method("inflict_damage"):
+			col.collider.inflict_damage(DAMAGE)
 		queue_free()
+	
