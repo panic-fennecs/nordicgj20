@@ -18,7 +18,7 @@ func consume_card():
 	return t
 
 func generate_card():
-	return "normal"
+	return ["forest", "island", "mountain", "plains", "swamp"][randi()%5]
 
 func get_image(c):
 	var t = load("res://res/cards/" + c + ".png")
