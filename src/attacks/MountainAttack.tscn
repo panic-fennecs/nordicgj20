@@ -2,5 +2,5 @@
 
 [ext_resource path="res://src/attacks/MountainAttack.gd" type="Script" id=1]
 
-[node name="MountainAttack" type="Node2D"]
+[node name="MountainAttack" type="KinematicBody2D"]
 script = ExtResource( 1 )
