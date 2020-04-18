@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 const SPEED: float = 50.0
 const MAX_SPEED: float = 200.0
-const DRAG: float = 0.8
+const DRAG: float = 0.6
 const MAX_HEALTH: float = 1.0
 
 var _velocity: Vector2 = Vector2.ZERO
@@ -50,7 +50,8 @@ func _physics_process(delta: float) -> void:
 		_velocity = _velocity.normalized() * MAX_SPEED
 		
 	_velocity = move_and_slide(_velocity)
-	_velocity *= DRAG
+	if direction == Vector2.ZERO:
+		_velocity *= DRAG
 	
 func set_health(new_health):
 	health = clamp(new_health, 0, MAX_HEALTH)
