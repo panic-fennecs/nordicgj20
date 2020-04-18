@@ -108,6 +108,8 @@ func _physics_process(delta):
 		current_task = _get_next_task()
 	_process_current_task(delta)
 
+	$Sprite.flip_h = speed.x > 0
+
 func _process_current_task(delta):
 	if current_task is IdleTask:
 		self._process_idle_task(delta)
