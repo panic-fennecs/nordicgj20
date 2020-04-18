@@ -1,6 +1,6 @@
 extends Node2D
 
-const COOLDOWN = 2.0
+const COOLDOWN = 0.5
 
 var visible_cards = []
 var cooldowns = [0.0, 0.0]
