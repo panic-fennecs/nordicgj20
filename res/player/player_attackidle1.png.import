@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/normal.jpg-6ed9c23063d333c1198e2571f43fb3dc.stex"
+path="res://.import/player_attackidle1.png-4e2655f932bfe088519d011b76bef90a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://res/cards/normal.jpg"
-dest_files=[ "res://.import/normal.jpg-6ed9c23063d333c1198e2571f43fb3dc.stex" ]
+source_file="res://res/player/player_attackidle1.png"
+dest_files=[ "res://.import/player_attackidle1.png-4e2655f932bfe088519d011b76bef90a.stex" ]
 
 [params]
 
