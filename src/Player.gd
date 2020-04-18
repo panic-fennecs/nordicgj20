@@ -15,7 +15,7 @@ func _ready():
 func _input(event) -> void:
 	if event is InputEventMouseButton:
 		if event.is_pressed():
-			print("todo @robin ", $MouseIndicator.rect_position.normalized())
+			$"/root/Main/CardManager".throw_card($MouseIndicator.rect_position.normalized())
 
 func _process(delta: float) -> void:
 	$MouseIndicator.rect_global_position = get_global_mouse_position()

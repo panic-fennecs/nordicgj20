@@ -8,6 +8,8 @@ var attack_scenes = [
 	preload("res://src/attacks/SwampAttack.tscn")
 ]
 
+const BasicAttack = preload("res://src/attacks/BasicAttack.gd")
+
 var attack_names = ["forest", "island", "mountain", "plains", "swamp"]
 var direction : Vector2
 
@@ -16,9 +18,11 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func activate_card(active_spell):
+func activate_card(active_spell, direction: Vector2):
 	for i in range(attack_names.size()):
 		if active_spell == attack_names[i]:
 			var attack_instance = attack_scenes[i].instance()
+			if attack_instance is BasicAttack:
+				attack_instance.setup(direction)
 			var player = $"/root/Main/Player"
 			player.add_child(attack_instance)

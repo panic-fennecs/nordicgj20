@@ -7,9 +7,10 @@ func _ready():
 		visible_cards.append(generate_card())
 
 func _process(delta):
-	if Input.is_action_just_pressed("ui_accept"):
-		$"/root/Main/AttackManager".activate_card(consume_card())
 	update_sprites()
+
+func throw_card(direction):
+	$"/root/Main/AttackManager".activate_card(consume_card(), direction)
 
 func consume_card():
 	var t = visible_cards[0]
