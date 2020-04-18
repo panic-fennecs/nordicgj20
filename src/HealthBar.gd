@@ -6,7 +6,7 @@ export var hue_min = 0.02
 export var saturation = .5
 export var value = .7
 
-func _on_health_changed(new_health: float):
+func _on_JumpEnemy_health_changed(new_health: float):
 	health = new_health
 	var c = Color()
 	var hue = mix(hue_min, hue_max, health)
