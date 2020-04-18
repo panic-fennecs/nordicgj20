@@ -4,12 +4,7 @@ const EnemyScene = preload("res://src/Enemy.tscn")
 const EnemyRuneclawBearScene = preload("res://src/EnemyRuneclawBear.tscn")
 const EnemySlimeScene = preload("res://src/enemies/SlimeEnemy.tscn")
 
-const SPAWN_INTERVAL = 5
-
 var enemies = []
-
-func _ready():
-	$SpawnTimer.connect("timeout", self, "_on_spawn")
 
 func _get_spawn_position():
 	return Vector2(randf() * 100.0, randf() * 100.0)
