@@ -12,15 +12,6 @@ func _ready():
 func _get_spawn_position():
 	return Vector2(randf() * 100.0, randf() * 100.0)
 
-func _on_spawn():
-	var enemy = EnemyRuneclawBearScene.instance()
-	enemy.position = _get_spawn_position()
-	add_child(enemy)
-
-	var enemy2 = EnemySlimeScene.instance()
-	enemy2.position = _get_spawn_position()
-	add_child(enemy2)
-
 func get_enemies():
 	var enemies = []
 	for e in get_children():
@@ -28,3 +19,6 @@ func get_enemies():
 			enemies.push_back(e)
 	return enemies
 	
+func _clear_enemies():
+	for enemy in get_enemies():
+		enemy.queue_free()

@@ -65,7 +65,7 @@ script = ExtResource( 1 )
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 1 )
 animation = "run"
-frame = 5
+frame = 2
 playing = true
 __meta__ = {
 "_editor_description_": "ff"
@@ -78,5 +78,6 @@ shape = SubResource( 2 )
 [node name="MouseIndicator" parent="." instance=ExtResource( 2 )]
 
 [node name="HealthBar" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, -50 )
 [connection signal="health_changed" from="." to="HealthBar" method="_on_health_changed"]
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
