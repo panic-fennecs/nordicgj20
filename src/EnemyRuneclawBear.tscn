@@ -4,4 +4,8 @@
 [ext_resource path="res://src/EnemyRuneclawBear.gd" type="Script" id=2]
 
 [node name="Enemy" instance=ExtResource( 1 )]
+collision_mask = 17
 script = ExtResource( 2 )
+
+[node name="Sprite" parent="." index="0"]
+frame = 0

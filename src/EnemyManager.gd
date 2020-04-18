@@ -22,3 +22,7 @@ func _clear_enemies():
 	for enemy in enemies:
 		enemy.queue_free()
 	enemies.clear()
+
+func remove_enemy(enemy):
+	enemies.erase(enemy)
+	enemy.queue_free()

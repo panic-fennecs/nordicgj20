@@ -30,9 +30,6 @@ func _physics_process(delta):
 		if collider:
 			process_hit(collider)
 
-#func _process(delta):
-#	pass
-
 func process_hit(collider):
 	queue_free()
 	

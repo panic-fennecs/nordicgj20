@@ -1,6 +1,6 @@
 extends Node2D
 
-const MAX_HEALTH = 100
+const MAX_HEALTH = 1.0
 
 class IdleTask:
 	var _speed
@@ -190,7 +190,7 @@ func _process_listen_task(delta):
 	$Sprite.flip_h = position.x < current_task._next_task.get_target_position().x
 
 func die():
-	queue_free()
+	$"/root/Main/EnemyManager".remove_enemy(self)
 
 func inflict_damage(dmg):
 	health -= dmg
