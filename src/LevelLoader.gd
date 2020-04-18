@@ -5,10 +5,7 @@ var level_scenes = [
 	preload("res://src/levels/Level1.tscn")
 ]
 var current = null
-var current_index = -1
-
-func _ready():
-	_load_next_level()
+var current_index = 0
 
 func _load_next_level():
 	for enemy in $"/root/Main/EnemyManager".get_children():
