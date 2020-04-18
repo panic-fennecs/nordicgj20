@@ -2,7 +2,7 @@ extends "res://src/attacks/BasicAttack.gd"
 
 func setup(direction : Vector2):
 	.setup(direction)
-	set_collision_layer_bit((pow(2, 2)), true)
+	set_collision_layer_bit(pow(2, 3), true)
 	set_collision_mask_bit(pow(2, 2), true)
 
 # Called when the node enters the scene tree for the first time.
