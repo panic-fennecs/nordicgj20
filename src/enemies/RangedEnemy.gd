@@ -2,11 +2,23 @@ extends KinematicBody2D
 
 const EnemyProjectileScene = preload("res://src/EnemyProjectile.tscn")
 const BULLET_SPEED = 300.0
+const BULLET_DIRECTIONS = [
+	Vector2(0.0, 1.0),
+	Vector2(0.707, 0.707),
+	Vector2(1.0, 0.0),
+	Vector2(0.707, -0.707),
+	Vector2(0.0, -1.0),
+	Vector2(-0.707, -0.707),
+	Vector2(-1.0, 0.0),
+	Vector2(-0.707, 0.707)
+]
 
 var dash_timer = 0
 var dash_direction = null
+var health = 1.0
 var _slow = 1.0
 var _slow_duration = 0.0
+var _blink_counter = 0.0
 
 func rand_direction():
 	return Vector2(randf() - 0.5, randf() - 0.5).normalized()
@@ -28,14 +40,35 @@ func _process(delta):
 	else:
 		_slow_duration -= delta
 
+	if _blink_counter >= 0:
+		self.visible = int(_blink_counter * 10) % 2 == 0
+		_blink_counter -= delta
+	else:
+		self.visible = true
+
 func shoot():
 	var p = EnemyProjectileScene.instance()
 	p.position = position
-	p.speed = ($"/root/Main/YSort/Player".position - position).normalized() * BULLET_SPEED
+	var s = ($"/root/Main/YSort/Player".position - position).normalized()
+
+	var best_match = -1
+	var best_direction = null
+	
+	for bullet_direction in BULLET_DIRECTIONS:
+		var accordance = s.dot(bullet_direction)
+		if best_match < accordance:
+			best_match = accordance
+			best_direction = bullet_direction
+
+	p.speed = best_direction.normalized() * BULLET_SPEED
 	$"/root/Main/".add_child(p)
 
 func inflict_damage(dmg):
-	$"/root/Main/EnemyManager".remove_enemy(self)
+	health -= dmg
+	if health <= 0.0:
+		$"/root/Main/EnemyManager".remove_enemy(self)
+	else:
+		_blink_counter = 1.0
 
 func apply_slow(slow, duration=1.0):
 	_slow = slow
