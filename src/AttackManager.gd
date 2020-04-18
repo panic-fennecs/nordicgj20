@@ -24,5 +24,4 @@ func activate_card(active_spell, direction: Vector2):
 			var attack_instance = attack_scenes[i].instance()
 			if attack_instance is BasicAttack:
 				attack_instance.setup(direction)
-			var player = $"/root/Main/Player"
-			player.add_child(attack_instance)
+			$"/root/Main".add_child(attack_instance)

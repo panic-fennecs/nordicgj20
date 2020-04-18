@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 export var custom_collision_layer = 3
 export var custom_collision_mask = 2
+export var damage_intensity = 1
 
 var _direction : Vector2
 var _normalized_direction : Vector2
