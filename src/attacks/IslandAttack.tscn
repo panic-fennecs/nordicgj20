@@ -3,19 +3,21 @@
 [ext_resource path="res://src/attacks/IslandAttack.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 19.5444, 19.5487 )
 
 [node name="IslandAttack" type="KinematicBody2D"]
 collision_layer = 4
 collision_mask = 2
 script = ExtResource( 1 )
-stun_radius = 3.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
 color = Color( 0.262745, 0.486275, 0.917647, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
