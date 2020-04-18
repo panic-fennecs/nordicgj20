@@ -1,7 +1,5 @@
 extends "res://src/attacks/BasicAttack.gd"
 
-export var damage_intensity = 1
-
 func setup(direction : Vector2):
 	.setup(direction)
 
@@ -12,5 +10,6 @@ func _ready():
 #	pass
 
 func process_hit(collider: KinematicBody2D):
-	
+	if (collider.has_method("inflict_damage")):
+		inflict_damage(damage_intensity)
 	.process_hit(collider)

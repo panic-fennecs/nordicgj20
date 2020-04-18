@@ -29,7 +29,6 @@ func _input(event) -> void:
 				print("play attack idle")
 			if $Sprite.animation == "run":
 				$Sprite.play("attack_run")
-			print("todo @robin ", $MouseIndicator.rect_position.normalized())
 			$"/root/Main/CardManager".throw_card($MouseIndicator.rect_position.normalized())
 
 func _process(delta: float) -> void:
