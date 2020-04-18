@@ -4,6 +4,7 @@
 [ext_resource path="res://src/attacks/hit_animations/StunAnimation.gd" type="Script" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
+radius = 1.0
 
 [node name="StunAnimation" type="Node2D"]
 script = ExtResource( 2 )
