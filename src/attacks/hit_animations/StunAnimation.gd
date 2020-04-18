@@ -7,13 +7,12 @@ func setup(position: Vector2, radius: float, damage: float):
 	global_position = position
 	_explosion_damage = damage
 	var collision_shape = get_node("Area2D/CollisionShape2D").get_shape()
-	var new_radius = collision_shape.get_radius() * radius
-	collision_shape.set_radius(new_radius)
-	get_node("Sprite").set_scale(Vector2(new_radius, new_radius))
+	collision_shape.set_radius(radius)
+	get_node("Sprite").set_scale(Vector2(radius, radius))
 	_timer = Timer.new()
 	_timer.set_wait_time(1.0)
 	self.add_child(_timer)
-	_timer.connect("timeout", self, "_on_Timer_timeout")	
+	_timer.connect("timeout", self, "_on_timer_timeout")	
 	_timer.start()
 
 func _ready():
@@ -22,7 +21,7 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func _on_Timer_timeout():
+func _on_timer_timeout():
 	_timer.queue_free()
 	queue_free()
 
