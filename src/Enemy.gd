@@ -1,5 +1,7 @@
 extends Node2D
 
+const MAX_HEALTH = 100
+
 class IdleTask:
 	var _speed
 	var _center
@@ -41,7 +43,7 @@ class AttackTask:
 		self._range_travelled = 0.0
 
 	func initiate(_enemy):
-		pass
+		_enemy.set_animation_speed(8.0)
 
 	func get_target_position():
 		if self._target is Vector2:
@@ -52,7 +54,10 @@ class AttackTask:
 	func finished(enemy):
 		if self._max_attack_range != null and self._range_travelled >= self._max_attack_range:
 			return true
-		return enemy.position.distance_squared_to(self.get_target_position()) <= self._hit_range * self._hit_range
+		var player_hit = enemy.position.distance_squared_to(self.get_target_position()) <= self._hit_range * self._hit_range
+		if player_hit:
+			enemy.target_point_found()
+		return player_hit
 
 class PatrolTask:
 	var _target_points
@@ -65,6 +70,7 @@ class PatrolTask:
 		self._target_index = 0
 
 	func initiate(enemy):
+		enemy.set_animation_speed(2.0)
 		if self._target_points == null:
 			self._target_points = [enemy.position, enemy.position + Vector2(100.0, 0.0)]
 
@@ -80,6 +86,7 @@ class PatrolTask:
 var task_queue = []
 var current_task
 var speed = Vector2()
+var health = MAX_HEALTH
 
 func _ready():
 	self.do_task(self._get_default_task())
@@ -109,6 +116,9 @@ func _physics_process(delta):
 	_process_current_task(delta)
 
 	$Sprite.flip_h = speed.x > 0
+
+func set_animation_speed(speed):
+	get_node("Sprite").get_sprite_frames().set_animation_speed(get_node("Sprite").animation, speed)
 
 func _process_current_task(delta):
 	if current_task is IdleTask:
@@ -143,5 +153,13 @@ func _process_patrol_task(delta):
 	if self.current_task.get_target_point().distance_squared_to(self.position) < (self.current_task._speed * self.current_task._speed * delta):
 		self.current_task.next_target()
 
-func inflict_damage(dmg):
+func die():
 	queue_free()
+
+func inflict_damage(dmg):
+	health -= dmg
+	if health <= 0:
+		die()
+
+func target_point_found():
+	pass
