@@ -1,7 +1,7 @@
 extends Node2D
 
 
-const THROW_DELAY = 0.3
+const THROW_DELAY = 0.15
 const COOLDOWN = 0.5
 
 var visible_cards = []
