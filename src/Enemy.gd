@@ -140,3 +140,6 @@ func _process_patrol_task(delta):
 	speed = (self.current_task.get_target_point() - self.position).normalized() * step_length
 	if self.current_task.get_target_point().distance_squared_to(self.position) < (self.current_task._speed * self.current_task._speed * delta):
 		self.current_task.next_target()
+
+func inflict_damage(dmg):
+	queue_free()
