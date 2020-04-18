@@ -19,3 +19,6 @@ func _physics_process(delta):
 			cooldown = ATTACK_COOLDOWN
 	else:
 		cooldown -= delta
+
+func target_point_found():
+	$"/root/Main/Player".inflict_damage(0.1)
