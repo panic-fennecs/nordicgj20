@@ -80,11 +80,9 @@ func _try_loose():
 	if health < 0:
 		pass
 
-<<<<<<< HEAD
 func dash():
 	dash_direction = (to_global(get_global_mouse_position()) - global_position).normalized()
 	dash_dist = DASH_RANGE
-=======
 
 func _on_Sprite_animation_finished():
 	print("finished ", $Sprite.animation)
@@ -95,4 +93,3 @@ func _on_Sprite_animation_finished():
 		"attack_run":
 			$Sprite.play("run")
 			_attack_anim = false
->>>>>>> 20bce5b306d822077f7a4d6a2e7ba4b795c320d2
