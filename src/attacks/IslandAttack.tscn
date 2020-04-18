@@ -5,9 +5,10 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 [node name="IslandAttack" type="KinematicBody2D"]
-collision_layer = 2
-collision_mask = 4
+collision_layer = 4
+collision_mask = 2
 script = ExtResource( 1 )
+stun_radius = 3.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )

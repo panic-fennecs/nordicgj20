@@ -34,6 +34,7 @@ class AttackTask:
 	var _hit_range
 	var _max_attack_range
 	var _range_travelled
+	var _direction
 
 	func _init(target, speed=150.0, hit_range=50.0, max_attack_range=null):
 		self._target = target
@@ -42,8 +43,10 @@ class AttackTask:
 		self._max_attack_range = max_attack_range
 		self._range_travelled = 0.0
 
-	func initiate(_enemy):
-		_enemy.set_animation_speed(8.0)
+	func initiate(enemy):
+		enemy.set_animation_speed(8.0)
+		enemy.show_animation("patrol")
+		self._direction = (get_target_position() - enemy.position).normalized()
 
 	func get_target_position():
 		if self._target is Vector2:
@@ -59,6 +62,9 @@ class AttackTask:
 			enemy.target_point_found()
 		return player_hit
 
+	func get_next_task():
+		return null
+
 class PatrolTask:
 	var _target_points
 	var _speed
@@ -71,6 +77,8 @@ class PatrolTask:
 
 	func initiate(enemy):
 		enemy.set_animation_speed(2.0)
+		enemy.show_animation("patrol")
+		enemy.get_node("Sprite").flip_h = true
 		if self._target_points == null:
 			self._target_points = [enemy.position, enemy.position + Vector2(100.0, 0.0)]
 
@@ -83,7 +91,30 @@ class PatrolTask:
 	func next_target():
 		self._target_index = (self._target_index + 1) % len(self._target_points)
 
-var task_queue = []
+	func get_next_task():
+		return null
+
+class ListenTask:
+	var _counter
+	var _duration
+	var _next_task
+	
+	func _init(duration, next_task):
+		self._counter = 0.0
+		self._duration = duration
+		self._next_task = next_task
+
+	func initiate(enemy):
+		enemy.speed = Vector2()
+		enemy.show_animation("listen")
+		enemy.set_animation_speed(6.0)
+
+	func finished(_enemy):
+		return _counter >= _duration
+
+	func get_next_task():
+		return _next_task
+
 var current_task
 var speed = Vector2()
 var health = MAX_HEALTH
@@ -95,11 +126,9 @@ func _get_default_task():
 	return IdleTask.new()
 
 func _get_next_task():
-	var next_task
-	if task_queue.empty():
+	var next_task = current_task.get_next_task()
+	if next_task == null:
 		next_task = self._get_default_task()
-	else:
-		next_task = task_queue.pop_front()
 	next_task.initiate(self)
 	return next_task
 
@@ -107,18 +136,17 @@ func do_task(task):
 	current_task = task
 	current_task.initiate(self)
 
-func queue_task(task):
-	self.task_queue.append(task)
-
 func _physics_process(delta):
 	if current_task.finished(self):
 		current_task = _get_next_task()
 	_process_current_task(delta)
 
-	$Sprite.flip_h = speed.x > 0
 
 func set_animation_speed(speed):
-	get_node("Sprite").get_sprite_frames().set_animation_speed(get_node("Sprite").animation, speed)
+	$"Sprite".get_sprite_frames().set_animation_speed(get_node("Sprite").animation, speed)
+
+func show_animation(animation):
+	$"Sprite".play(animation)
 
 func _process_current_task(delta):
 	if current_task is IdleTask:
@@ -127,6 +155,8 @@ func _process_current_task(delta):
 		self._process_attack_task(delta)
 	elif current_task is PatrolTask:
 		self._process_patrol_task(delta)
+	elif current_task is ListenTask:
+		self._process_listen_task(delta)
 
 	self.position += self.speed * delta
 
@@ -143,15 +173,21 @@ func _process_idle_task(delta):
 	speed += speed_update
 
 func _process_attack_task(delta):
-	speed = (current_task.get_target_position() - self.position) / delta
-	speed = speed.clamped(current_task._speed)
+	speed = current_task._direction * current_task._speed
 	self.current_task._range_travelled += current_task._speed * delta
+	$Sprite.flip_h = speed.x > 0
 
 func _process_patrol_task(delta):
-	var step_length = min(self.current_task._speed, self.position.distance_to(self.current_task.get_target_point()) / delta)
-	speed = (self.current_task.get_target_point() - self.position).normalized() * step_length
 	if self.current_task.get_target_point().distance_squared_to(self.position) < (self.current_task._speed * self.current_task._speed * delta):
 		self.current_task.next_target()
+	var step_length = min(self.current_task._speed, self.position.distance_to(self.current_task.get_target_point()) / delta)
+	speed = (self.current_task.get_target_point() - self.position).normalized() * step_length
+
+	$Sprite.flip_h = speed.x > 0
+
+func _process_listen_task(delta):
+	self.current_task._counter += delta
+	$Sprite.flip_h = position.x < current_task._next_task.get_target_position().x
 
 func die():
 	queue_free()
