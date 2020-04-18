@@ -77,7 +77,7 @@ func _change_state(state) -> void:
 	_elapsed_time = 0
 
 func inflict_damage(dmg):
-	print(dmg)
+	pass
 
 func _on_Area2D_body_entered(body):
 	if body.has_method("inflict_damage"):
