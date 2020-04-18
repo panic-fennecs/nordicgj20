@@ -42,8 +42,9 @@ class AttackTask:
 		self._max_attack_range = max_attack_range
 		self._range_travelled = 0.0
 
-	func initiate(_enemy):
-		_enemy.set_animation_speed(8.0)
+	func initiate(enemy):
+		enemy.set_animation_speed(8.0)
+		enemy.show_animation("patrol")
 
 	func get_target_position():
 		if self._target is Vector2:
@@ -73,7 +74,6 @@ class PatrolTask:
 		self._target_index = 0
 
 	func initiate(enemy):
-		enemy.speed = Vector2()
 		enemy.set_animation_speed(2.0)
 		enemy.show_animation("patrol")
 		if self._target_points == null:
@@ -102,6 +102,7 @@ class ListenTask:
 		self._next_task = next_task
 
 	func initiate(enemy):
+		enemy.speed = Vector2()
 		enemy.show_animation("listen")
 		enemy.set_animation_speed(2.0)
 
