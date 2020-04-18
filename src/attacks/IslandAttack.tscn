@@ -10,7 +10,6 @@ extents = Vector2( 8.3011, 8.66821 )
 collision_layer = 4
 collision_mask = 18
 script = ExtResource( 1 )
-explosion_damage = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
