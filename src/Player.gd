@@ -81,7 +81,7 @@ func _try_loose():
 		pass
 
 func dash():
-	dash_direction = (to_global(get_global_mouse_position()) - global_position).normalized()
+	dash_direction = (get_global_mouse_position() - global_position).normalized()
 	dash_dist = DASH_RANGE
 
 func _on_Sprite_animation_finished():
