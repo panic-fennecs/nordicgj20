@@ -2,6 +2,16 @@ extends KinematicBody2D
 
 const EnemyProjectileScene = preload("res://src/EnemyProjectile.tscn")
 const BULLET_SPEED = 300.0
+const BULLET_DIRECTIONS = [
+	Vector2(0.0, 1.0),
+	Vector2(0.707, 0.707),
+	Vector2(1.0, 0.0),
+	Vector2(0.707, -0.707),
+	Vector2(0.0, -1.0),
+	Vector2(-0.707, -0.707),
+	Vector2(-1.0, 0.0),
+	Vector2(-0.707, 0.707)
+]
 
 var dash_timer = 0
 var dash_direction = null
@@ -31,7 +41,18 @@ func _process(delta):
 func shoot():
 	var p = EnemyProjectileScene.instance()
 	p.position = position
-	p.speed = ($"/root/Main/YSort/Player".position - position).normalized() * BULLET_SPEED
+	var s = ($"/root/Main/YSort/Player".position - position).normalized()
+
+	var best_match = -1
+	var best_direction = null
+	
+	for bullet_direction in BULLET_DIRECTIONS:
+		var accordance = s.dot(bullet_direction)
+		if best_match < accordance:
+			best_match = accordance
+			best_direction = bullet_direction
+
+	p.speed = best_direction.normalized() * BULLET_SPEED
 	$"/root/Main/".add_child(p)
 
 func inflict_damage(dmg):
