@@ -20,8 +20,6 @@ func _physics_process(delta):
 			cooldown = ATTACK_COOLDOWN
 	else:
 		cooldown -= delta
-		
-	print(_slow)
 
 func target_point_found():
 	$"/root/Main/YSort/Player".inflict_damage(0.3)
