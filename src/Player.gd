@@ -26,7 +26,6 @@ func _input(event) -> void:
 			if $Sprite.animation == "idle":
 				$Sprite.stop()
 				$Sprite.play("attack_idle")
-				print("play attack idle")
 			if $Sprite.animation == "run":
 				$Sprite.play("attack_run")
 			$"/root/Main/CardManager".throw_card($MouseIndicator.rect_position.normalized())
@@ -94,7 +93,6 @@ func dash():
 	dash_dist = DASH_RANGE
 
 func _on_Sprite_animation_finished():
-	print("finished ", $Sprite.animation)
 	match $Sprite.animation:
 		"attack_idle":
 			$Sprite.play("idle")

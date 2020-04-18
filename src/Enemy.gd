@@ -1,5 +1,7 @@
 extends Node2D
 
+const MAX_HEALTH = 100
+
 class IdleTask:
 	var _speed
 	var _center
@@ -80,6 +82,7 @@ class PatrolTask:
 var task_queue = []
 var current_task
 var speed = Vector2()
+var health = MAX_HEALTH
 
 func _ready():
 	self.do_task(self._get_default_task())
@@ -143,5 +146,10 @@ func _process_patrol_task(delta):
 	if self.current_task.get_target_point().distance_squared_to(self.position) < (self.current_task._speed * self.current_task._speed * delta):
 		self.current_task.next_target()
 
-func inflict_damage(dmg):
+func die():
 	queue_free()
+
+func inflict_damage(dmg):
+	health -= dmg
+	if health <= 0:
+		die()
