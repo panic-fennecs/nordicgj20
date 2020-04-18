@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 const EnemyProjectileScene = preload("res://src/EnemyProjectile.tscn")
-const BULLET_SPEED = 300.0
+const BULLET_SPEED = 220.0
 const BULLET_DIRECTIONS = [
 	Vector2(0.0, 1.0),
 	Vector2(0.707, 0.707),
@@ -12,6 +12,9 @@ const BULLET_DIRECTIONS = [
 	Vector2(-1.0, 0.0),
 	Vector2(-0.707, 0.707)
 ]
+const DASH_COOLDOWN = 3.0
+const SHOT_COOLDOWN = 1.5
+const DASH_SPEED = 200.0
 
 var dash_timer = 0
 var dash_direction = null
@@ -19,6 +22,7 @@ var health = 1.0
 var _slow = 1.0
 var _slow_duration = 0.0
 var _blink_counter = 0.0
+var shoot_timer = SHOT_COOLDOWN
 
 func rand_direction():
 	return Vector2(randf() - 0.5, randf() - 0.5).normalized()
@@ -27,18 +31,22 @@ func _ready():
 	dash_direction = rand_direction()
 
 func _process(delta):
-	dash_timer += delta
-	if dash_timer >= 1:
-		move_and_slide(dash_direction * 400.0 * _slow)
-	if dash_timer >= 1.3:
+	dash_timer += delta * _slow
+	if dash_timer >= DASH_COOLDOWN:
+		move_and_slide(dash_direction * DASH_SPEED * _slow)
+	if dash_timer >= DASH_COOLDOWN + 0.6:
 		dash_timer = 0
 		dash_direction = rand_direction()
-		shoot()
 
 	if _slow_duration <= 0.0:
 		_slow = 1.0
 	else:
 		_slow_duration -= delta
+
+	shoot_timer -= delta * _slow
+	if shoot_timer <= 0.0:
+		shoot_timer = SHOT_COOLDOWN
+		shoot()
 
 	if _blink_counter >= 0:
 		self.visible = int(_blink_counter * 10) % 2 == 0
@@ -70,6 +78,7 @@ func inflict_damage(dmg):
 	else:
 		_blink_counter = 1.0
 
-func apply_slow(slow, duration=1.0):
+func apply_slow(slow, duration=3.0):
 	_slow = slow
-	_slow_duration = duration
+	_slow_duration = duration * 6.0
+	print('duration: ', duration)
