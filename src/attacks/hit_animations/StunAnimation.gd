@@ -1,5 +1,7 @@
 extends Node2D
 
+export var explosion_duration: float = 0.5
+
 var _explosion_damage: float
 var _timer: Timer
 
@@ -10,7 +12,7 @@ func setup(position: Vector2, radius: float, damage: float):
 	collision_shape.set_radius(radius)
 	get_node("Sprite").set_scale(Vector2(radius, radius))
 	_timer = Timer.new()
-	_timer.set_wait_time(1.0)
+	_timer.set_wait_time(explosion_duration)
 	self.add_child(_timer)
 	_timer.connect("timeout", self, "_on_timer_timeout")	
 	_timer.start()
