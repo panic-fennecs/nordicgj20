@@ -2,7 +2,7 @@ extends Node2D
 
 var level_scenes = [
 	preload("res://src/levels/Level0.tscn"),
-	#preload("res://src/levels/Level1.tscn")
+	preload("res://src/levels/Level1.tscn")
 ]
 var current = null
 var current_index = 0
