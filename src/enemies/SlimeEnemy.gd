@@ -16,3 +16,6 @@ func _process(delta):
 	if dash_timer >= 1.3:
 		dash_timer = 0
 		dash_direction = rand_direction()
+
+func inflict_damage(dmg):
+	queue_free()
