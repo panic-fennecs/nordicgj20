@@ -2,7 +2,7 @@ extends "res://src/attacks/BasicAttack.gd"
 
 export var stun_duration_sec = 0.5
 export var stun_radius = 3.0
-export var explosion_damage = 2.0
+export var explosion_damage = 0.1
 
 var _stun_animation_scene = preload("res://src/attacks/hit_animations/StunAnimation.tscn")
 
