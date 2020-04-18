@@ -14,7 +14,7 @@ func setup(position: Vector2, radius: float, damage: float):
 	_timer = Timer.new()
 	_timer.set_wait_time(explosion_duration)
 	self.add_child(_timer)
-	_timer.connect("timeout", self, "_on_timer_timeout")	
+	_timer.connect("timeout", self, "_on_timer_timeout")
 	_timer.start()
 
 func _ready():
