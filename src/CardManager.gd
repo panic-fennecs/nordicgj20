@@ -1,6 +1,6 @@
 extends Node2D
 
-const COOLDOWN = 2.0
+const COOLDOWN = 0.5
 
 var visible_cards = []
 var cooldowns = [0.0, 0.0]
@@ -22,14 +22,16 @@ func throw_card(direction, x):
 		cooldowns[x] = COOLDOWN
 
 func consume_card(x):
+	var left = visible_cards[0]
 	var mid = visible_cards[1]
+	var right = visible_cards[2]
 	if x == 0:
 		var t = visible_cards[0]
-		visible_cards = [generate_card(), generate_card(), mid]
+		visible_cards = [mid, generate_card(), right]
 		return t
 	if x == 1:
 		var t = visible_cards[2]
-		visible_cards = [mid, generate_card(), generate_card()]
+		visible_cards = [left, generate_card(), mid]
 		return t
 
 func generate_card():
