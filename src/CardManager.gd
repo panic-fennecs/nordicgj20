@@ -30,6 +30,8 @@ func get_sprite(c):
 	return s
 
 func update_sprites():
+	var offset = 3
+
 	var cl = $"CanvasLayer"
 	for c in cl.get_children():
 		cl.remove_child(c)
@@ -37,5 +39,7 @@ func update_sprites():
 
 	for i in range(3):
 		var s = get_sprite(visible_cards[i])
-		s.position += Vector2(20 + i*22, 600)
+		var size = s.get_rect().size
+		s.position.x = size.x / 2 + offset + i * (offset + size.x)
+		s.position.y = get_viewport_rect().size.y - size.y / 2 - offset
 		cl.add_child(s)
