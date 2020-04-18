@@ -1,7 +1,11 @@
 extends KinematicBody2D
 
+const DAMAGE = 0.3
+
 var dash_timer = 0
 var dash_direction = null
+var _slow = 1.0
+var _slow_duration = 0.0
 
 func rand_direction():
 	return Vector2(randf() - 0.5, randf() - 0.5).normalized()
@@ -12,10 +16,31 @@ func _ready():
 func _process(delta):
 	dash_timer += delta
 	if dash_timer >= 1:
-		move_and_slide(dash_direction * 400.0)
+		var col = move_and_collide(dash_direction * 6.0 * _slow)
+		if col:
+			_handle_collision(col)
+	else:
+		var col = move_and_collide(Vector2())
+		if col:
+			_handle_collision(col)
+
 	if dash_timer >= 1.3:
 		dash_timer = 0
 		dash_direction = rand_direction()
 
+	if _slow_duration <= 0.0:
+		_slow = 1.0
+	else:
+		_slow_duration -= delta
+
+func _handle_collision(col):
+	if col.collider.has_method("inflict_damage"):
+		col.collider.inflict_damage(DAMAGE)
+		$"/root/Main/EnemyManager".remove_enemy(self)
+
 func inflict_damage(dmg):
 	$"/root/Main/EnemyManager".remove_enemy(self)
+
+func apply_slow(slow, duration=1.0):
+	_slow = slow
+	_slow_duration = duration

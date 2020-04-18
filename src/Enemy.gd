@@ -1,6 +1,6 @@
 extends Node2D
 
-const MAX_HEALTH = 100
+const MAX_HEALTH = 1.0
 
 class IdleTask:
 	var _speed
@@ -118,6 +118,8 @@ class ListenTask:
 var current_task
 var speed = Vector2()
 var health = MAX_HEALTH
+var _slow = 1.0
+var _slow_duration = 0.0
 
 func _ready():
 	self.do_task(self._get_default_task())
@@ -141,6 +143,10 @@ func _physics_process(delta):
 		current_task = _get_next_task()
 	_process_current_task(delta)
 
+	if _slow_duration <= 0.0:
+		_slow = 1.0
+	else:
+		_slow_duration -= delta
 
 func set_animation_speed(speed):
 	$"Sprite".get_sprite_frames().set_animation_speed(get_node("Sprite").animation, speed)
@@ -158,7 +164,7 @@ func _process_current_task(delta):
 	elif current_task is ListenTask:
 		self._process_listen_task(delta)
 
-	self.position += self.speed * delta
+	self.position += self.speed * delta * _slow
 
 func _process_idle_task(delta):
 	# change target
@@ -199,3 +205,7 @@ func inflict_damage(dmg):
 
 func target_point_found():
 	pass
+
+func apply_slow(slow, duration=1.0):
+	_slow = slow
+	_slow_duration = duration
