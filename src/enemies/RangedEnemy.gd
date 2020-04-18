@@ -31,7 +31,7 @@ func _ready():
 	dash_direction = rand_direction()
 
 func _process(delta):
-	dash_timer += delta
+	dash_timer += delta * _slow
 	if dash_timer >= DASH_COOLDOWN:
 		move_and_slide(dash_direction * DASH_SPEED * _slow)
 	if dash_timer >= DASH_COOLDOWN + 0.6:
@@ -43,7 +43,7 @@ func _process(delta):
 	else:
 		_slow_duration -= delta
 
-	shoot_timer -= delta
+	shoot_timer -= delta * _slow
 	if shoot_timer <= 0.0:
 		shoot_timer = SHOT_COOLDOWN
 		shoot()
@@ -78,6 +78,7 @@ func inflict_damage(dmg):
 	else:
 		_blink_counter = 1.0
 
-func apply_slow(slow, duration=1.0):
+func apply_slow(slow, duration=3.0):
 	_slow = slow
-	_slow_duration = duration
+	_slow_duration = duration * 6.0
+	print('duration: ', duration)
