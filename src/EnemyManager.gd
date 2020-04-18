@@ -15,3 +15,11 @@ func _on_spawn():
 	var enemy = EnemyRuneclawBearScene.instance()
 	enemy.position = _get_spawn_position()
 	add_child(enemy)
+
+func get_enemies():
+	var enemies = []
+	for e in get_children():
+		if e.has_method("inflict_damage"):
+			enemies.push_back(e)
+	return enemies
+	
