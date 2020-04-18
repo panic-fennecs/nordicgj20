@@ -82,3 +82,6 @@ func inflict_damage(dmg):
 func _on_Area2D_body_entered(body):
 	if body.has_method("inflict_damage"):
 		body.inflict_damage(DAMAGE)
+
+func apply_slow(slow):
+	pass

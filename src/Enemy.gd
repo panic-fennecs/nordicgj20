@@ -199,3 +199,6 @@ func inflict_damage(dmg):
 
 func target_point_found():
 	pass
+
+func apply_slow(slow):
+	pass

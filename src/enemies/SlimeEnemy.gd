@@ -33,3 +33,6 @@ func _handle_collision(col):
 
 func inflict_damage(dmg):
 	$"/root/Main/EnemyManager".remove_enemy(self)
+
+func apply_slow(slow):
+	pass

@@ -29,3 +29,6 @@ func shoot():
 
 func inflict_damage(dmg):
 	$"/root/Main/EnemyManager".remove_enemy(self)
+
+func apply_slow(slow):
+	pass
