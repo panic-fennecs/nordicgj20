@@ -31,6 +31,8 @@ script = ExtResource( 4 )
 
 [node name="Level0" parent="LevelLoader" instance=ExtResource( 9 )]
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
-
 [node name="EnemyManager" parent="." instance=ExtResource( 2 )]
+
+[node name="YSort" type="YSort" parent="."]
+
+[node name="Player" parent="YSort" instance=ExtResource( 3 )]

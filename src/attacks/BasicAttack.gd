@@ -16,7 +16,7 @@ func setup(direction: Vector2):
 	set_collision_mask_bit(pow(2, custom_collision_mask), true)
 	
 func _ready():	
-	var player = $"/root/Main/Player"
+	var player = $"/root/Main/YSort/Player"
 	global_position = player.global_position
 	look_at(global_position + _direction)
 	
