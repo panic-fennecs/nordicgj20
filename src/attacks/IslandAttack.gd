@@ -1,9 +1,10 @@
 extends "res://src/attacks/BasicAttack.gd"
 
-export var stun_duration_sec = 0.5
-export var stun_radius = 3.0
+export var slow_radius = 3.0
+export var slow_factor = 0.5
+export var slow_duration = 1
 
-var _stun_animation_scene = preload("res://src/attacks/hit_animations/StunAnimation.tscn")
+var _stun_animation_scene = preload("res://src/attacks/hit_animations/SlowAnimation.tscn")
 
 func setup(direction : Vector2):
 	.setup(direction)
@@ -12,5 +13,5 @@ func process_hit(collider):
 	if not collider is TileMap:
 		var instance = _stun_animation_scene.instance()
 		$"/root/Main".add_child(instance)
-		instance.setup(collider.global_position, stun_radius, damage_intensity)
+		instance.setup(collider.global_position, slow_radius, damage_intensity, slow_factor, slow_duration)
 	.process_hit(collider)

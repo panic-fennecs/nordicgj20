@@ -4,7 +4,7 @@ extends Node2D
 const THROW_DELAY = 0.15
 const COOLDOWN = 0.5
 
-var cards = ["mountain", "mountain"]
+var cards = ["mountain", "island"]
 var cooldowns = [0.0, 0.0]
 var _throw_timers = [null, null]
 
