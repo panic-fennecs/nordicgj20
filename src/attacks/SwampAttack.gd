@@ -1,5 +1,4 @@
-extends Node2D
-
+extends "res://src/attacks/BasicAttack.gd"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
