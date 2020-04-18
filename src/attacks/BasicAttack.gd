@@ -7,7 +7,6 @@ export var _speed: float = 400
 
 func setup(direction: Vector2):
 	_direction = direction
-	print(direction)
 	_normalized_direction = direction.normalized()
 	
 func _ready():

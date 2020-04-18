@@ -2,7 +2,8 @@ extends Node2D
 
 var attack_scenes = [
 	preload("res://src/attacks/BasicAttack.tscn"),
-	preload("res://src/attacks/CustomAttack.tscn")
+	preload("res://src/attacks/MountainAttack.tscn"),
+	preload("res://src/attacks/ForestAttack.tscn")
 ]
 
 var attack_names = ["normal", "custom"]
