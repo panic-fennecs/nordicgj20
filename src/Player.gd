@@ -5,7 +5,7 @@ const MAX_SPEED: float = 200.0
 const DRAG: float = 0.6
 const MAX_HEALTH: float = 1.0
 const DASH_SPEED: float = 1200.0
-const DASH_RANGE: float = 24000.0
+const DASH_RANGE: float = 15000.0
 
 var _velocity: Vector2 = Vector2.ZERO
 var _looking_left: bool = false
@@ -19,6 +19,16 @@ var dash_direction = null
 func _ready():
 	emit_signal("health_changed", health)
 
+func walk_dir():
+	var direction: Vector2 = Vector2.ZERO
+	if Input.is_action_pressed("left"): direction.x -= 1
+	if Input.is_action_pressed("right"): direction.x += 1
+	if Input.is_action_pressed("up"): direction.y -= 1
+	if Input.is_action_pressed("down"): direction.y += 1
+	
+	direction = direction.normalized()
+	return direction
+
 func _input(event) -> void:
 	if event is InputEventMouseButton:
 		if event.is_pressed():
@@ -30,19 +40,13 @@ func _input(event) -> void:
 				$Sprite.play("attack_run")
 			var x = 0
 			if event.button_index == BUTTON_RIGHT: x = 1
-			$"/root/Main/CardManager".throw_card($MouseIndicator.rect_position.normalized(), x)
+			$"/root/Main/CardManager".throw_card($MouseIndicator.rect_position, x)
 
 func _process(delta: float) -> void:
 	$MouseIndicator.rect_global_position = get_global_mouse_position()
 
 func _physics_process(delta: float) -> void:
-	var direction: Vector2 = Vector2.ZERO
-	if Input.is_action_pressed("left"): direction.x -= 1
-	if Input.is_action_pressed("right"): direction.x += 1
-	if Input.is_action_pressed("up"): direction.y -= 1
-	if Input.is_action_pressed("down"): direction.y += 1
-	
-	direction = direction.normalized()
+	var direction = walk_dir()
 	
 	if _attack_anim == false:
 		if direction == Vector2.ZERO: $Sprite.play("idle")
@@ -91,7 +95,7 @@ func _try_loose():
 		pass
 
 func dash():
-	dash_direction = (get_global_mouse_position() - global_position).normalized()
+	dash_direction = walk_dir()
 	dash_dist = DASH_RANGE
 
 func _on_Sprite_animation_finished():

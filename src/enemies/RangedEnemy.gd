@@ -28,4 +28,4 @@ func shoot():
 	$"/root/Main/".add_child(p)
 
 func inflict_damage(dmg):
-	queue_free()
+	$"/root/Main/EnemyManager".remove_enemy(self)
