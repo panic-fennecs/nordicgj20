@@ -4,8 +4,8 @@ const SPEED: float = 50.0
 const MAX_SPEED: float = 200.0
 const DRAG: float = 0.8
 const MAX_HEALTH: float = 1.0
-const DASH_SPEED: float = 500.0
-const DASH_RANGE: float = 1000.0
+const DASH_SPEED: float = 1200.0
+const DASH_RANGE: float = 24000.0
 
 var _velocity: Vector2 = Vector2.ZERO
 var _looking_left: bool = false
