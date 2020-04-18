@@ -43,7 +43,7 @@ class AttackTask:
 		self._range_travelled = 0.0
 
 	func initiate(_enemy):
-		pass
+		_enemy.set_animation_speed(8.0)
 
 	func get_target_position():
 		if self._target is Vector2:
@@ -70,6 +70,7 @@ class PatrolTask:
 		self._target_index = 0
 
 	func initiate(enemy):
+		enemy.set_animation_speed(2.0)
 		if self._target_points == null:
 			self._target_points = [enemy.position, enemy.position + Vector2(100.0, 0.0)]
 
@@ -115,6 +116,9 @@ func _physics_process(delta):
 	_process_current_task(delta)
 
 	$Sprite.flip_h = speed.x > 0
+
+func set_animation_speed(speed):
+	get_node("Sprite").get_sprite_frames().set_animation_speed(get_node("Sprite").animation, speed)
 
 func _process_current_task(delta):
 	if current_task is IdleTask:
