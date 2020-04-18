@@ -1,16 +1,21 @@
 extends KinematicBody2D
 
+var dash_timer = 0
+var dash_direction = null
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+func rand_direction():
+	return Vector2(randf() - 0.5, randf() - 0.5).normalized()
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	dash_direction = rand_direction()
 
+func _process(delta):
+	dash_timer += delta
+	if dash_timer >= 1:
+		move_and_slide(dash_direction * 400.0)
+	if dash_timer >= 1.3:
+		dash_timer = 0
+		dash_direction = rand_direction()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func inflict_damage(dmg):
+	queue_free()
