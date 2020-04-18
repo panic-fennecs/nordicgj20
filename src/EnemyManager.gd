@@ -19,3 +19,6 @@ func get_enemies():
 			enemies.push_back(e)
 	return enemies
 	
+func _clear_enemies():
+	for enemy in get_enemies():
+		enemy.queue_free()
