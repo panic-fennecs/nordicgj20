@@ -15,7 +15,7 @@ func _ready():
 			enemy.inflict_damage(1.0)
 
 func _draw():
-	draw_circle(pos, AOE_RANGE, Color.black) # TODO make this drawing nicer
+	draw_circle(to_local(pos), AOE_RANGE, Color.black) # TODO make this drawing nicer
 
 func _process(delta):
 	lifetime -= delta
