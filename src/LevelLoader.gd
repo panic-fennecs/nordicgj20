@@ -2,7 +2,7 @@ extends Node2D
 
 var level_scenes = [
 	preload("res://src/levels/Level0.tscn"),
-	preload("res://src/levels/Level1.tscn")
+	#preload("res://src/levels/Level1.tscn")
 ]
 var current = null
 var current_index = 0
@@ -14,12 +14,10 @@ func _ready():
 		current = children[0]
 
 func _process(delta):
-	var key = Input.is_key_pressed(KEY_L)
-	if key and not prev_key:
-		prev_key = key
-		_load_next_level()
-	elif not key:
-		prev_key = key
+	next_level_by_key()
+	if len($"/root/Main/EnemyManager".get_enemies()) == 0:
+		current._open_door()
+
 
 func _load_next_level():
 	$"/root/Main/EnemyManager"._clear_enemies()
@@ -28,3 +26,11 @@ func _load_next_level():
 	current_index = (current_index + 1) % len(level_scenes)
 	current = level_scenes[current_index].instance()
 	add_child(current)
+
+func next_level_by_key():
+	var key = Input.is_key_pressed(KEY_L)
+	if key and not prev_key:
+		prev_key = key
+		_load_next_level()
+	elif not key:
+		prev_key = key

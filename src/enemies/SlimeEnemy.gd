@@ -18,4 +18,4 @@ func _process(delta):
 		dash_direction = rand_direction()
 
 func inflict_damage(dmg):
-	queue_free()
+	$"/root/Main/EnemyManager".remove_enemy(self)

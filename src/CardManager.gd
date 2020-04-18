@@ -1,12 +1,12 @@
 extends Node2D
 
 
-const THROW_DELAY = 0.3
+const THROW_DELAY = 0.15
 const COOLDOWN = 0.5
 
 var visible_cards = []
 var cooldowns = [0.0, 0.0]
-var _throw_timer: Timer
+var _throw_timers = [null, null]
 
 func _ready():
 	for i in range(3):
@@ -25,14 +25,14 @@ func throw_card(direction, x):
 		cooldowns[x] = COOLDOWN	
 		
 func _throw_card(index, direction: Vector2):
-	_throw_timer = Timer.new()
-	_throw_timer.set_wait_time(THROW_DELAY)
-	self.add_child(_throw_timer)
-	_throw_timer.connect("timeout", self, "_on_throw_timer_timeout", [index, direction])
-	_throw_timer.start()
+	_throw_timers[index] = Timer.new()
+	_throw_timers[index].set_wait_time(THROW_DELAY)
+	self.add_child(_throw_timers[index])
+	_throw_timers[index].connect("timeout", self, "_on_throw_timer_timeout", [index, direction])
+	_throw_timers[index].start()
 	
 func _on_throw_timer_timeout(index, direction: Vector2):
-	_throw_timer.queue_free()
+	_throw_timers[index].queue_free()
 	$"/root/Main/AttackManager".activate_card(consume_card(index), direction)
 
 func consume_card(x):
