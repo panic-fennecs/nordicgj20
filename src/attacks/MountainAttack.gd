@@ -9,7 +9,7 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func process_hit(collider: KinematicBody2D):
-	if (collider.has_method("inflict_damage")):
-		collider.inflict_damage(damage_intensity)
-	.process_hit(collider)
+func process_hit(collider):
+	if collider and collider.has_method("inflict_damage"):
+		collider.inflict_damage(damage_intensity) # TODO: This does not work ;) .process_hit(collider)
+	queue_free()
