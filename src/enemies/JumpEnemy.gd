@@ -20,6 +20,8 @@ var _jump_speed: float = 0.0
 var _elapsed_time: float = 0.0
 var _state_changed: bool = true
 var _shadow_scale: float = 0.0
+var _slow = 1.0
+var _slow_duration = 0.0
 
 func _ready() -> void:
 	_shadow_scale = $Shadow.scale.x
@@ -69,7 +71,12 @@ func _physics_process(delta) -> void:
 			if _elapsed_time >= LAND_DURATION:
 				_change_state(State.CHARGE)
 				
-	_elapsed_time += delta
+	_elapsed_time += delta * _slow
+
+	if _slow_duration <= 0.0:
+		_slow = 1.0
+	else:
+		_slow_duration -= delta
 	
 func _change_state(state) -> void:
 	_state = state
@@ -83,5 +90,6 @@ func _on_Area2D_body_entered(body):
 	if body.has_method("inflict_damage"):
 		body.inflict_damage(DAMAGE)
 
-func apply_slow(slow):
-	pass
+func apply_slow(slow, duration=1.0):
+	_slow = slow
+	_slow_duration = duration
