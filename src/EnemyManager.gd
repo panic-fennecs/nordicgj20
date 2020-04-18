@@ -2,6 +2,7 @@ extends Node2D
 
 const EnemyScene = preload("res://src/Enemy.tscn")
 const EnemyRuneclawBearScene = preload("res://src/EnemyRuneclawBear.tscn")
+const EnemySlimeScene = preload("res://src/enemies/SlimeEnemy.tscn")
 
 const SPAWN_INTERVAL = 5
 
@@ -15,6 +16,10 @@ func _on_spawn():
 	var enemy = EnemyRuneclawBearScene.instance()
 	enemy.position = _get_spawn_position()
 	add_child(enemy)
+
+	var enemy2 = EnemySlimeScene.instance()
+	enemy2.position = _get_spawn_position()
+	add_child(enemy2)
 
 func get_enemies():
 	var enemies = []
