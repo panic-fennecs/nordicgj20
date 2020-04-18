@@ -30,7 +30,7 @@ func _input(event) -> void:
 				$Sprite.play("attack_run")
 			var x = 0
 			if event.button_index == BUTTON_RIGHT: x = 1
-			$"/root/Main/CardManager".throw_card($MouseIndicator.rect_position.normalized(), x)
+			$"/root/Main/CardManager".throw_card($MouseIndicator.rect_position, x)
 
 func _process(delta: float) -> void:
 	$MouseIndicator.rect_global_position = get_global_mouse_position()
