@@ -11,5 +11,5 @@ func _ready():
 
 func process_hit(collider: KinematicBody2D):
 	if (collider.has_method("inflict_damage")):
-		inflict_damage(damage_intensity)
+		collider.inflict_damage(damage_intensity)
 	.process_hit(collider)
