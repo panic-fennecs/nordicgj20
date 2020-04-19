@@ -11,3 +11,5 @@ text = "Yeah, you have won"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Sprite" type="Sprite" parent="."]
