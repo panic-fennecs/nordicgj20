@@ -4,7 +4,7 @@
 [ext_resource path="res://src/EnemyProjectile.gd" type="Script" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 2.95119
+radius = 5.23927
 
 [node name="EnemyProjectile" type="KinematicBody2D"]
 collision_layer = 8
@@ -12,8 +12,8 @@ collision_mask = 17
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 0.5 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.523886, 0.473474 )
 texture = ExtResource( 1 )
