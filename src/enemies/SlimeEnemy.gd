@@ -1,11 +1,17 @@
 extends KinematicBody2D
 
 const DAMAGE = 0.3
+const MAX_HEALTH = 1.0
+const AGRO_DURATION = 1.5
+const AGRO_ACCELERATION = 2.0
 
 var dash_timer = 0
 var dash_direction = null
 var _slow = 1.0
 var _slow_duration = 0.0
+var _blink_counter = 0.0
+var _agro_counter = 0.0
+var health: float = MAX_HEALTH
 
 func rand_direction():
 	return Vector2(randf() - 0.5, randf() - 0.5).normalized()
@@ -14,9 +20,19 @@ func _ready():
 	dash_direction = rand_direction()
 
 func _process(delta):
-	dash_timer += delta
+	var agro = false
+	var agro_acc = 1.0
+	if _agro_counter > 0:
+		_agro_counter = max(_agro_counter - delta, 0)
+		agro = true
+		agro_acc = AGRO_ACCELERATION
+	else:
+		self.modulate = Color.white
+
+	dash_timer += delta * agro_acc * agro_acc
+
 	if dash_timer >= 1:
-		var col = move_and_collide(dash_direction * 6.0 * _slow)
+		var col = move_and_collide(dash_direction * 6.0 * _slow * agro_acc)
 		if col:
 			_handle_collision(col)
 	else:
@@ -33,13 +49,25 @@ func _process(delta):
 	else:
 		_slow_duration -= delta
 
+	if _blink_counter >= 0:
+		self.visible = int(_blink_counter * 10) % 2 == 0
+		_blink_counter -= delta
+	else:
+		self.visible = true
+
 func _handle_collision(col):
 	if col.collider.has_method("inflict_damage"):
 		col.collider.inflict_damage(DAMAGE)
 		$"/root/Main/EnemyManager".remove_enemy(self)
 
 func inflict_damage(dmg):
-	$"/root/Main/EnemyManager".remove_enemy(self)
+	health -= dmg
+	if health <= 0.0:
+		$"/root/Main/EnemyManager".remove_enemy(self)
+	else:
+		_blink_counter = AGRO_DURATION
+		_agro_counter = AGRO_DURATION
+		self.modulate = Color.orangered
 
 func apply_slow(slow, duration=1.0):
 	_slow = slow

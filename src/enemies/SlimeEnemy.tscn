@@ -4,6 +4,7 @@
 [ext_resource path="res://src/enemies/SlimeEnemy.gd" type="Script" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
+radius = 12.0278
 
 [node name="SlimeEnemy" type="KinematicBody2D"]
 collision_layer = 2
@@ -14,4 +15,5 @@ position = Vector2( -0.358475, -7.52821 )
 texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.71698, -1.07546 )
 shape = SubResource( 1 )

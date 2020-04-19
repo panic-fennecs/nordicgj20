@@ -13,4 +13,3 @@ func _physics_process(delta):
 		if col.collider.has_method("inflict_damage"):
 			col.collider.inflict_damage(DAMAGE)
 		queue_free()
-	

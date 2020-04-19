@@ -80,5 +80,5 @@ func inflict_damage(dmg):
 
 func apply_slow(slow, duration=3.0):
 	_slow = slow
-	_slow_duration = duration * 6.0
+	_slow_duration = duration
 	print('duration: ', duration)
