@@ -20,6 +20,7 @@ var dash_direction = null
 
 func _ready():
 	emit_signal("health_changed", health) # TODO: _on_health_changed() not implemented
+	add_to_group("player")
 
 func walk_dir():
 	var direction: Vector2 = Vector2.ZERO
