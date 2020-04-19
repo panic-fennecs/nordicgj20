@@ -2,7 +2,6 @@ extends KinematicBody2D
 
 export var custom_collision_layer = 3
 export var custom_collision_mask = 2
-export var damage_intensity = 1.0
 export var card_size = 0.25
 
 var _direction : Vector2
