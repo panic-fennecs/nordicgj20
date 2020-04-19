@@ -94,8 +94,9 @@ func heal(h):
 	set_health(health + h)
 
 func _try_loose():
-	if health < 0:
-		pass
+	if health <= 0:
+		set_health(1)
+		$"/root/Main/LevelLoader"._load_prev_level()
 
 func dash():
 	dash_direction = walk_dir()

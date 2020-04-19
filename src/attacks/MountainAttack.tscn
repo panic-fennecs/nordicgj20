@@ -4,6 +4,7 @@
 [ext_resource path="res://res/cards/card_throw.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 53, 34 )
 
 [node name="MountainAttack" type="KinematicBody2D"]
 collision_layer = 4
