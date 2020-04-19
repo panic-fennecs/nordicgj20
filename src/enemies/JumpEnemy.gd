@@ -5,12 +5,14 @@ signal health_changed(new_health)
 enum State { CHARGE, JUMP, LAND }
 
 # state durations
-const JUMP_DURATION: float = 1.5
-const CHARGE_DURATION: float = 2.0
+const JUMP_DURATION: float = 0.7
+const CHARGE_DURATION: float = 0.25
 const LAND_DURATION: float = 0.3
 const HEIGHT: float = 150.0
 const DAMAGE: float = 0.1
 const MAX_HEALTH = 1.0
+const JUMP_RANGE = 200.0
+const RANDOM_OFFSET = 100.0
 
 #physics
 var _target: Vector2 = Vector2.ZERO
@@ -25,6 +27,7 @@ var _slow = 1.0
 var _slow_duration = 0.0
 var _health = MAX_HEALTH
 var _blink_counter = 0.0
+var _charge_duration = CHARGE_DURATION
 
 func _ready() -> void:
 	_shadow_scale = $Shadow.scale.x
@@ -34,13 +37,20 @@ func _charge() -> void:
 		_state_changed = false
 		_gravity = 8 * HEIGHT / (pow(JUMP_DURATION, 2))
 		_jump_speed = sqrt(2 * HEIGHT * _gravity)
-		
+
+func _get_next_target():
+	var target = $"/root/Main/YSort/Player".position
+	var me_to_target = (target - position).clamped(JUMP_RANGE)
+	return position + me_to_target + Vector2(
+		(randf() - 0.5) * RANDOM_OFFSET,
+		(randf() - 0.5) * RANDOM_OFFSET
+	)
+
 func _jump() -> void:
 	if _state_changed:
 		_state_changed = false
-		_target = $"/root/Main/YSort/Player".position
-		_target.x += randf() * 320 - 160
-		_target.y += randf() * 320 - 160
+		_target = _get_next_target()
+
 		var v = _target - position
 		var l = v.length()
 		_target = position + v.normalized() * min(300, l)
@@ -65,18 +75,16 @@ func _land() -> void:
 func _physics_process(delta) -> void:
 	match _state:
 		State.CHARGE:
-			$"DamageSprite".visible = false
 			_charge()
-			if _elapsed_time >= CHARGE_DURATION:
+			if _elapsed_time >= _charge_duration:
 				_change_state(State.JUMP)
-		
+
 		State.JUMP:
 			_jump()
 			if _elapsed_time >= JUMP_DURATION:
 				_change_state(State.LAND)
-				
+
 		State.LAND:
-			$"DamageSprite".visible = true
 			$DamageSprite.modulate = Color(1.0, 1.0, 1.0, 1.0 - range_lerp(_elapsed_time, 0.0, LAND_DURATION, 0.0, 1.0))
 			_land()
 			if _elapsed_time >= LAND_DURATION:
@@ -99,6 +107,15 @@ func _change_state(state) -> void:
 	_state = state
 	_state_changed = true
 	_elapsed_time = 0
+
+	match _state:
+		State.CHARGE:
+			$"DamageSprite".visible = false
+			_charge_duration = CHARGE_DURATION + randf() * 0.5
+		State.LAND:
+			$"DamageSprite".visible = true
+		State.JUMP:
+			pass
 
 func inflict_damage(dmg):
 	_health -= dmg
