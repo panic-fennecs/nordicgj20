@@ -2,7 +2,7 @@ extends Node2D
 
 
 const THROW_DELAY = 0.15
-const COOLDOWNS = {"forest":3.0, "island":0.5, "mountain":0.5, "swamp":0.5, "plains":0.5}
+const COOLDOWNS = {"forest":3.0, "island":0.5, "mountain":0.5, "swamp":1.2, "plains":0.5}
 
 var cards = ["mountain", "island"]
 var cooldowns = [0.0, 0.0]
