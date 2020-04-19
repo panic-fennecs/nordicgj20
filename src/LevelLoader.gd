@@ -6,8 +6,10 @@ var scenes = [
 	preload("res://src/levels/Level2.tscn"),
 	preload("res://src/levels/Level3.tscn"),
 	preload("res://src/levels/Level5.tscn"),
-	preload("res://src/levels/Level4.tscn"),
 	preload("res://src/levels/Level6.tscn"),
+	preload("res://src/levels/Level7.tscn"),
+	preload("res://src/levels/Level8.tscn"),
+	preload("res://src/levels/Level4.tscn"),
 ]
 var is_save_zone = true
 var current = null
