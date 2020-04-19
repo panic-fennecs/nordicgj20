@@ -76,7 +76,7 @@ func _physics_process(delta: float) -> void:
 		if dash_dist <= 0:
 			dash_dist = null
 			dash_direction = null
-			
+			set_collision_layer_bit(0, true)
 		_velocity = move_and_slide(_velocity)
 		# TODO add "dash" animation
 	else:
@@ -116,6 +116,7 @@ func _try_loose():
 func dash():
 	dash_direction = walk_dir()
 	dash_dist = DASH_RANGE
+	set_collision_layer_bit(0, false)
 
 func _on_Sprite_animation_finished():
 	match $Sprite.animation:

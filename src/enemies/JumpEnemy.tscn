@@ -20,12 +20,13 @@ collision_mask = 20
 script = ExtResource( 2 )
 
 [node name="DamageSprite" type="Sprite" parent="."]
+visible = false
 position = Vector2( 0.397, 16 )
 scale = Vector2( 2, 1.5 )
 texture = ExtResource( 5 )
 
 [node name="Shadow" type="Sprite" parent="."]
-position = Vector2( 0, 2.38419e-07 )
+position = Vector2( 0, -15 )
 scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 3 )
 
@@ -42,6 +43,7 @@ scale = Vector2( 0.5, 0.5 )
 shape = SubResource( 1 )
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 0.397217, 15.4496 )
