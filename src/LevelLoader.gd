@@ -57,6 +57,9 @@ func _load_prev_level():
 		current_index = (len(scenes) + current_index - 1) % len(scenes)
 		current = save_zone.instance()
 		is_save_zone = true
+	
+	add_child(current)
+	$"/root/Main/YSort/Player".position = Vector2(0, 0)
 
 func next_level_by_key():
 	var key = Input.is_key_pressed(KEY_L)
