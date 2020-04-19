@@ -2,7 +2,7 @@ extends Node2D
 
 
 const THROW_DELAY = 0.15
-const COOLDOWN = 0.5
+const COOLDOWNS = {"forest":3.0, "island":0.5, "mountain":0.5, "swamp":0.5, "plains":0.5}
 
 var cards = ["mountain", "island"]
 var cooldowns = [0.0, 0.0]
@@ -21,7 +21,7 @@ func select_cards(arg):
 func throw_card(direction, x):
 	if cooldowns[x] == 0:
 		_throw_card(x, direction)
-		cooldowns[x] = COOLDOWN	
+		cooldowns[x] = COOLDOWNS[cards[x]]
 		
 func _throw_card(index, direction: Vector2):
 	_throw_timers[index] = Timer.new()
@@ -66,7 +66,7 @@ func update_sprites():
 		var cs = ColorRect.new()
 		cs.color = Color.black
 		cs.set_position(s.position - realsize / 2.0)
-		cs.set_size(Vector2(realsize.x, realsize.y * (cooldowns[i] / COOLDOWN)))
+		cs.set_size(Vector2(realsize.x, realsize.y * (cooldowns[i] / COOLDOWNS[cards[i]])))
 		cl.add_child(cs)
 		var s2 = get_sprite(cards[i])
 		s2.position.x = size.x / 2 + offset + i * (offset + size.x)
