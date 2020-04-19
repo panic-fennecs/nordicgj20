@@ -10,6 +10,7 @@ const CHARGE_DURATION: float = 2.0
 const LAND_DURATION: float = 0.3
 const HEIGHT: float = 150.0
 const DAMAGE: float = 0.1
+const MAX_HEALTH = 1.0
 
 #physics
 var _target: Vector2 = Vector2.ZERO
@@ -22,6 +23,8 @@ var _state_changed: bool = true
 var _shadow_scale: float = 0.0
 var _slow = 1.0
 var _slow_duration = 0.0
+var _health = MAX_HEALTH
+var _blink_counter = 0.0
 
 func _ready() -> void:
 	_shadow_scale = $Shadow.scale.x
@@ -73,13 +76,19 @@ func _physics_process(delta) -> void:
 			_land()
 			if _elapsed_time >= LAND_DURATION:
 				_change_state(State.CHARGE)
-				
+
 	_elapsed_time += delta * _slow
 
 	if _slow_duration <= 0.0:
 		_slow = 1.0
 	else:
 		_slow_duration -= delta
+
+	if _blink_counter >= 0:
+		self.visible = int(_blink_counter * 10) % 2 == 0
+		_blink_counter -= delta
+	else:
+		self.visible = true
 	
 func _change_state(state) -> void:
 	_state = state
@@ -87,7 +96,12 @@ func _change_state(state) -> void:
 	_elapsed_time = 0
 
 func inflict_damage(dmg):
-	pass
+	_health -= dmg
+	print('health: ', _health)
+	if _health <= 0.0:
+		$"/root/Main/EnemyManager".remove_enemy(self)
+	else:
+		_blink_counter = 1.0
 
 func _on_Area2D_body_entered(body):
 	if _state == State.LAND and body.has_method("inflict_damage"):
