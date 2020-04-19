@@ -4,6 +4,7 @@ const DAMAGE = 0.3
 const MAX_HEALTH = 1.0
 const AGRO_DURATION = 1.5
 const AGRO_ACCELERATION = 2.0
+const DAMAGE_COOLDOWN = 0.4
 
 var dash_timer = 0
 var dash_direction = null
@@ -12,6 +13,7 @@ var _slow_duration = 0.0
 var _blink_counter = 0.0
 var _agro_counter = 0.0
 var health: float = MAX_HEALTH
+var damage_cooldown = 0
 
 func rand_direction():
 	return Vector2(randf() - 0.5, randf() - 0.5).normalized()
@@ -20,6 +22,9 @@ func _ready():
 	dash_direction = rand_direction()
 
 func _process(delta):
+	damage_cooldown -= delta
+	if damage_cooldown < 0: damage_cooldown = 0
+	
 	var agro = false
 	var agro_acc = 1.0
 	if _agro_counter > 0:
@@ -56,18 +61,22 @@ func _process(delta):
 		self.visible = true
 
 func _handle_collision(col):
-	if col.collider.has_method("inflict_damage"):
+	if col.collider.has_method("inflict_damage") and damage_cooldown == 0:
+		damage_cooldown = DAMAGE_COOLDOWN
 		col.collider.inflict_damage(DAMAGE)
-		$"/root/Main/EnemyManager".remove_enemy(self)
+		make_agro()
+
+func make_agro():
+	_blink_counter = AGRO_DURATION
+	_agro_counter = AGRO_DURATION
+	self.modulate = Color.orangered
 
 func inflict_damage(dmg):
 	health -= dmg
 	if health <= 0.0:
 		$"/root/Main/EnemyManager".remove_enemy(self)
 	else:
-		_blink_counter = AGRO_DURATION
-		_agro_counter = AGRO_DURATION
-		self.modulate = Color.orangered
+		make_agro()
 
 func apply_slow(slow, duration=1.0):
 	_slow = slow
