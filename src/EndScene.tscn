@@ -1,15 +1,9 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://res/won.jpg" type="Texture" id=1]
 
 [node name="EndScene" type="Node2D"]
 
-[node name="Label" type="Label" parent="."]
-margin_left = 502.0
-margin_top = 306.0
-margin_right = 740.0
-margin_bottom = 354.0
-text = "Yeah, you have won"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 640.694, 360.955 )
+texture = ExtResource( 1 )
