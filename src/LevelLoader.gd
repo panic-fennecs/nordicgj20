@@ -6,7 +6,7 @@ var scenes = [
 ]
 var is_save_zone = true
 var current = null
-var current_index = 0
+var current_index = -1
 var prev_key = false
 
 func _is_save_zone():
@@ -42,6 +42,22 @@ func _load_next_level():
 		current = save_zone.instance()
 		is_save_zone = true
 		
+	add_child(current)
+	$"/root/Main/YSort/Player".position = Vector2(0, 0)
+
+func _load_prev_level():
+	$"/root/Main/EnemyManager"._clear_enemies()
+	if current:
+		current.queue_free()
+	
+	if _is_save_zone():
+		current = scenes[current_index].instance()
+		is_save_zone = false
+	else:
+		current_index = (len(scenes) + current_index - 1) % len(scenes)
+		current = save_zone.instance()
+		is_save_zone = true
+	
 	add_child(current)
 	$"/root/Main/YSort/Player".position = Vector2(0, 0)
 
