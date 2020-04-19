@@ -1,0 +1,13 @@
+[gd_scene format=2]
+
+[node name="EndScene" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+margin_left = 502.0
+margin_top = 306.0
+margin_right = 740.0
+margin_bottom = 354.0
+text = "Yeah, you have won"
+__meta__ = {
+"_edit_use_anchors_": false
+}

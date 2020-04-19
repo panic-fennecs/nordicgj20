@@ -39,9 +39,6 @@ tile_data = PoolIntArray( -524322, 1, 0, -524321, 1, 0, -524318, 1, 0, -524317, 
 [node name="EnemySpawner" type="Node2D" parent="."]
 script = ExtResource( 5 )
 
-[node name="Enemy" parent="EnemySpawner" instance=ExtResource( 1 )]
-position = Vector2( -450.07, -281.294 )
-
 [node name="Enemy2" parent="EnemySpawner" instance=ExtResource( 1 )]
 position = Vector2( -1325.6, -24.6133 )
 
@@ -52,13 +49,13 @@ position = Vector2( -1513.71, -21.097 )
 position = Vector2( -1693.04, -26.3713 )
 
 [node name="SlimeEnemy" parent="EnemySpawner" instance=ExtResource( 4 )]
-position = Vector2( 89.6625, -293.601 )
+position = Vector2( 117.792, -205.697 )
 
 [node name="SlimeEnemy3" parent="EnemySpawner" instance=ExtResource( 4 )]
-position = Vector2( -822.785, -312.94 )
+position = Vector2( -537.975, -207.455 )
 
 [node name="SlimeEnemy4" parent="EnemySpawner" instance=ExtResource( 4 )]
-position = Vector2( -935.302, -207.454 )
+position = Vector2( -710.267, -319.972 )
 
 [node name="SlimeEnemy2" parent="EnemySpawner" instance=ExtResource( 4 )]
-position = Vector2( -63.2911, -235.584 )
+position = Vector2( -119.55, -330.521 )

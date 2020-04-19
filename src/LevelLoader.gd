@@ -13,6 +13,7 @@ var is_save_zone = true
 var current = null
 var current_index = -1
 var prev_key = false
+var end_screen_scene = "res://src/EndScene.tscn"
 
 func _is_save_zone():
 	return is_save_zone
@@ -34,7 +35,7 @@ func _process(delta):
 	if current._is_door(player_pos.x, player_pos.y):
 		_load_next_level()
 
-func _load_next_level():
+func _load_next_level():	
 	$"/root/Main/EnemyManager"._clear_enemies()
 	if current:
 		current.queue_free()
@@ -47,6 +48,10 @@ func _load_next_level():
 		current = save_zone.instance()
 		is_save_zone = true
 		$"/root/Main".ban_cards()
+		
+		if current_index == len(scenes) - 1:
+			get_tree().change_scene(end_screen_scene)
+			return
 		
 	add_child(current)
 	$"/root/Main/YSort/Player".position = Vector2(0, 0)

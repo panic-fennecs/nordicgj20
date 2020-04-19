@@ -1,6 +1,6 @@
 extends Node2D
 
-const MAX_HEALTH = 1.0
+const MAX_HEALTH = 2.0
 
 class IdleTask:
 	var _speed
