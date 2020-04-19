@@ -40,7 +40,6 @@ func _load_next_level():
 		
 	if _is_save_zone():
 		current_index = (current_index + 1) % len(scenes)
-		print(current_index)
 		current = scenes[current_index].instance()
 		is_save_zone = false
 	else:

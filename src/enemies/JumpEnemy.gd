@@ -123,14 +123,13 @@ func _change_state(state) -> void:
 func inflict_damage(dmg):
 	$"/root/Main/Camera2D".shake()
 	_health -= dmg
-	print('health: ', _health)
 	if _health <= 0.0:
 		$"/root/Main/EnemyManager".remove_enemy(self)
 	else:
 		_blink_counter = 1.0
 
 func _on_Area2D_body_entered(body):
-	if _state == State.LAND and body.has_method("inflict_damage"):
+	if _state == State.LAND and body.has_method("inflict_damage") and body.is_in_group("player"):
 		body.inflict_damage(DAMAGE)
 
 func apply_slow(slow, duration=1.0):
