@@ -62,9 +62,7 @@ func _on_Tween_tween_completed(object, key):
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 		$"/root/Main".paused = false
 		
-		var selection = _selected_cards
-		print("selection ", selection)
-		$"/root/Main/CardManager".select_cards(selection)
+		$"/root/Main/CardManager".select_cards(_selected_cards)
 
 func _on_SelectableCard_selection_changed(type, selected) -> void:
 	if selected:

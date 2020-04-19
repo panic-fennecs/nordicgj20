@@ -10,7 +10,6 @@ func _ready() -> void:
 func add_card(card: String) -> void:
 	if not avaiable_cards.has(card):
 		avaiable_cards.append(card)
-		print("card added: ", card)
 
 func ban_cards() -> void:
 	banned_cards = [false, false, false, false, false]
@@ -19,7 +18,6 @@ func ban_cards() -> void:
 		var banned_card = $CardManager.cards[randi() % len($CardManager.cards)]
 		var banned_index = avaiable_cards.find(banned_card)
 		banned_cards[banned_index] = true
-		print("card banned: ", avaiable_cards[banned_index])
 		
 		var selection_after_ban: Array = []
 		for i in range(len(avaiable_cards)):
