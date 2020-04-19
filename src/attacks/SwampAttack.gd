@@ -1,5 +1,6 @@
 extends Node2D
 
+const DAMAGE = 0.5
 const AOE_RANGE: float = 100.0
 const LIFETIME: float = 0.4
 
@@ -13,7 +14,7 @@ func _ready():
 	for enemy in $"/root/Main/EnemyManager".get_enemies():
 		var v = enemy.global_position - pos
 		if v.length_squared() <= AOE_RANGE * AOE_RANGE:
-			enemy.inflict_damage(1.0)
+			enemy.inflict_damage(DAMAGE)
 	var img = load("res://res/player/aoe.png")
 	var aoe_sprite = Sprite.new()
 	aoe_sprite.texture = img
