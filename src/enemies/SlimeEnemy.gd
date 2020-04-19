@@ -82,6 +82,9 @@ func inflict_damage(dmg):
 		$"/root/Main/EnemyManager".remove_enemy(self)
 	else:
 		make_agro()
+		$Tween.interpolate_property($Sprite, "scale", Vector2.ONE, Vector2(1.5, 1.5), 0.05, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		$Tween.interpolate_property($Sprite, "scale", Vector2(1.5, 1.5), Vector2.ONE, 0.15, Tween.TRANS_CUBIC, Tween.EASE_OUT, 0.05)
+		$Tween.start()
 
 func apply_slow(slow, duration=1.0):
 	_slow = slow
