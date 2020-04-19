@@ -114,8 +114,11 @@ func _change_state(state) -> void:
 			_charge_duration = CHARGE_DURATION + randf() * 0.5
 		State.LAND:
 			$"DamageSprite".visible = true
+			collision_mask = 2
+			collision_layer = 20
 		State.JUMP:
-			pass
+			collision_mask = 0
+			collision_layer = 0
 
 func inflict_damage(dmg):
 	_health -= dmg
