@@ -1,13 +1,16 @@
 extends Node2D
 
-var level0 = preload("res://src/levels/Level0.tscn")
-var level_scenes = [
+var save_zone = preload("res://src/levels/Level0.tscn")
+var scenes = [
 	preload("res://src/levels/Level1.tscn"),
 ]
-var is_level0 = true
+var is_save_zone = true
 var current = null
 var current_index = 0
 var prev_key = false
+
+func _is_save_zone():
+	return is_save_zone
 
 func _ready():
 	var children = get_children()
@@ -31,13 +34,13 @@ func _load_next_level():
 	if current:
 		current.queue_free()
 		
-	if is_level0:
-		current_index = (current_index + 1) % len(level_scenes)
-		current = level_scenes[current_index].instance()
-		is_level0 = false
+	if _is_save_zone():
+		current_index = (current_index + 1) % len(scenes)
+		current = scenes[current_index].instance()
+		is_save_zone = false
 	else:
-		current = level0.instance()
-		is_level0 = true
+		current = save_zone.instance()
+		is_save_zone = true
 		
 	add_child(current)
 	$"/root/Main/YSort/Player".position = Vector2(0, 0)
