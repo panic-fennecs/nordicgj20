@@ -3,10 +3,12 @@ extends Node2D
 var save_zone = preload("res://src/levels/Level0.tscn")
 var scenes = [
 	preload("res://src/levels/Level1.tscn"),
+	preload("res://src/levels/Level2.tscn"),
+	preload("res://src/levels/Level3.tscn"),
 ]
 var is_save_zone = true
 var current = null
-var current_index = 0
+var current_index = -1
 var prev_key = false
 
 func _is_save_zone():
@@ -45,6 +47,19 @@ func _load_next_level():
 		
 	add_child(current)
 	$"/root/Main/YSort/Player".position = Vector2(0, 0)
+
+func _load_prev_level():
+	$"/root/Main/EnemyManager"._clear_enemies()
+	if current:
+		current.queue_free()
+	
+	if _is_save_zone():
+		current = scenes[current_index].instance()
+		is_save_zone = false
+	else:
+		current_index = (len(scenes) + current_index - 1) % len(scenes)
+		current = save_zone.instance()
+		is_save_zone = true
 
 func next_level_by_key():
 	var key = Input.is_key_pressed(KEY_L)
