@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="nordicgj20"
-run/main_scene="res://src/Main.tscn"
+run/main_scene="res://src/StartScreen.tscn"
 config/icon="res://icon.png"
 
 [input]
