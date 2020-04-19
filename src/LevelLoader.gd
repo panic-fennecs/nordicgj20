@@ -2,12 +2,12 @@ extends Node2D
 
 var save_zone = preload("res://src/levels/Level0.tscn")
 var scenes = [
-	preload("res://src/levels/Level6.tscn"),
 	preload("res://src/levels/Level1.tscn"),
 	preload("res://src/levels/Level2.tscn"),
 	preload("res://src/levels/Level3.tscn"),
 	preload("res://src/levels/Level5.tscn"),
 	preload("res://src/levels/Level4.tscn"),
+	preload("res://src/levels/Level6.tscn"),
 ]
 var is_save_zone = true
 var current = null
