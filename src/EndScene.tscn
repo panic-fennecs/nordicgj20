@@ -3,13 +3,11 @@
 [node name="EndScene" type="Node2D"]
 
 [node name="Label" type="Label" parent="."]
-margin_left = 501.0
+margin_left = 502.0
 margin_top = 306.0
-margin_right = 739.0
+margin_right = 740.0
 margin_bottom = 354.0
-text = "Dies ist eine Gratulation.
-Sie ist hier, da Sie gewonnen haben...
-Das ist Grund zur Freude."
+text = "Yeah, you have won"
 __meta__ = {
 "_edit_use_anchors_": false
 }
