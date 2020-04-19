@@ -1,5 +1,6 @@
 extends Node2D
 
+const INDICATOR_WIDTH = 82
 var health = 1.0
 export var hue_max = 0.22
 export var hue_min = 0.02
@@ -12,7 +13,7 @@ func _on_health_changed(new_health: float):
 	var hue = mix(hue_min, hue_max, health)
 	c = c.from_hsv(hue, saturation, value)
 	$"Indicator".set_frame_color(c)
-	$"Indicator".set_size(Vector2(health * 80, $"Indicator".get_size().y))
+	$"Indicator".set_size(Vector2(health * INDICATOR_WIDTH, $"Indicator".get_size().y))
 
 func mix(a, b, n):
 	return a + (b - a) * n
