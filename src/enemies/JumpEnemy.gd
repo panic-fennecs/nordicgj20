@@ -36,6 +36,11 @@ func _jump() -> void:
 	if _state_changed:
 		_state_changed = false
 		_target = $"/root/Main/YSort/Player".position
+		_target.x += randf() * 320 - 160
+		_target.y += randf() * 320 - 160
+		var v = _target - position
+		var l = v.length()
+		_target = position + v.normalized() * min(300, l)
 		_jump_start = position
 		$Area2D/CollisionShape2D.disabled = true
 		
@@ -57,6 +62,7 @@ func _land() -> void:
 func _physics_process(delta) -> void:
 	match _state:
 		State.CHARGE:
+			$"DamageSprite".visible = false
 			_charge()
 			if _elapsed_time >= CHARGE_DURATION:
 				_change_state(State.JUMP)
@@ -67,6 +73,8 @@ func _physics_process(delta) -> void:
 				_change_state(State.LAND)
 				
 		State.LAND:
+			$"DamageSprite".visible = true
+			$DamageSprite.modulate = Color(1.0, 1.0, 1.0, 1.0 - range_lerp(_elapsed_time, 0.0, LAND_DURATION, 0.0, 1.0))
 			_land()
 			if _elapsed_time >= LAND_DURATION:
 				_change_state(State.CHARGE)
@@ -87,7 +95,7 @@ func inflict_damage(dmg):
 	pass
 
 func _on_Area2D_body_entered(body):
-	if body.has_method("inflict_damage"):
+	if _state == State.LAND and body.has_method("inflict_damage"):
 		body.inflict_damage(DAMAGE)
 
 func apply_slow(slow, duration=1.0):
