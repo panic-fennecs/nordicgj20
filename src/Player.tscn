@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://src/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/MouseIndicator.tscn" type="PackedScene" id=2]
@@ -58,6 +58,12 @@ animations = [ {
 radius = 11.2962
 height = 37.3471
 
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0.0229885, 0.484091 ), 0.0, 0.0, 0, 0, Vector2( 0.91954, 0.0295454 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=4]
+colors = PoolColorArray( 1, 1, 1, 0.501961, 1, 1, 1, 0 )
+
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 24
 script = ExtResource( 1 )
@@ -66,7 +72,7 @@ script = ExtResource( 1 )
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 1 )
 animation = "run"
-frame = 9
+frame = 1
 playing = true
 __meta__ = {
 "_editor_description_": "ff"
@@ -80,5 +86,16 @@ shape = SubResource( 2 )
 
 [node name="HealthBar" parent="." instance=ExtResource( 3 )]
 position = Vector2( 0, -50 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 4
+lifetime = 0.5
+speed_scale = 2.0
+local_coords = false
+texture = ExtResource( 16 )
+gravity = Vector2( 0, 0 )
+scale_amount_curve = SubResource( 3 )
+color_ramp = SubResource( 4 )
 [connection signal="health_changed" from="." to="HealthBar" method="_on_health_changed"]
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]

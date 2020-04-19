@@ -61,11 +61,14 @@ func _physics_process(delta: float) -> void:
 	if direction == Vector2.ZERO:
 		_velocity *= DRAG
 	if dash_dist:
+		$CPUParticles2D.emitting = true
 		_velocity = dash_direction.normalized() * DASH_SPEED
 		dash_dist -= DASH_SPEED
 		if dash_dist <= 0:
+			$CPUParticles2D.emitting = false
 			dash_dist = null
 			dash_direction = null
+			
 		_velocity = move_and_slide(_velocity)
 		# TODO add "dash" animation
 	else:
