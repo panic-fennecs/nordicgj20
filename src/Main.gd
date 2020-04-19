@@ -1,7 +1,7 @@
 extends Node2D
 
 var paused: bool = false
-var avaiable_cards: Array = ["mountain", "island"]
+var avaiable_cards: Array = ["mountain", "plains"]
 var banned_cards: Array = [false, false, false, false, false]
 
 func _ready() -> void:
