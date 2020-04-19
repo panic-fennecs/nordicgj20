@@ -5,7 +5,7 @@ var closing: bool = false
 func setup(card_type) -> void:
 	match card_type:
 		"forest": $NodeGroup/CardName.text = "Heal"
-		"island": $NodeGroup/CardName.text = "Stun"
+		"island": $NodeGroup/CardName.text = "Slow"
 		"mountain": $NodeGroup/CardName.text = "Fireball"
 		"plains": $NodeGroup/CardName.text = "Dash"
 		"swamp": $NodeGroup/CardName.text = "Area Attack"
