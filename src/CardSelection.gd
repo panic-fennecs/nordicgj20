@@ -31,6 +31,8 @@ func _process(_delta: float) -> void:
 	if len($"/root/Main/".avaiable_cards) < 3: return
 	if Input.is_action_just_pressed("space"):
 		if not $SelectionScreen.visible:
+			for card in cards:
+				card.selectable = true
 			$"/root/Main".paused = true
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			$SelectionScreen.scale = Vector2.ZERO
@@ -53,6 +55,8 @@ func _process(_delta: float) -> void:
 			$SpaceBar.visible = true
 			$Tween.interpolate_property($SelectionScreen, "scale", Vector2.ONE, Vector2.ZERO, 0.5, Tween.TRANS_CIRC, Tween.EASE_IN)
 			$Tween.start()
+			for card in cards:
+				card.selectable = false
 
 
 func _on_Tween_tween_completed(object, key):

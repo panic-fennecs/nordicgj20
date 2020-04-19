@@ -3,6 +3,7 @@ extends Area2D
 var type: String
 var selected: bool = false
 var _banned: bool = false
+var selectable: bool = true
 
 signal selection_changed(type, selected)
 
@@ -21,6 +22,7 @@ func unselect():
 	emit_signal("selection_changed", type, selected)
 
 func _on_SelectableCard_input_event(viewport, event, shape_idx) -> void:
+	if not selectable: return
 	if event is InputEventMouseButton \
 	and event.button_index == BUTTON_LEFT \
 	and event.pressed and not _banned:
