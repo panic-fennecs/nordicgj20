@@ -113,6 +113,7 @@ func _change_state(state) -> void:
 			$"DamageSprite".visible = false
 			_charge_duration = CHARGE_DURATION + randf() * 0.5
 		State.LAND:
+			$"/root/Main/Camera2D".shake()
 			$"DamageSprite".visible = true
 			collision_mask = 20
 			collision_layer = 2
@@ -127,6 +128,9 @@ func inflict_damage(dmg):
 		$"/root/Main/EnemyManager".remove_enemy(self)
 	else:
 		_blink_counter = 1.0
+		$Tween.interpolate_property($Sprite, "scale", Vector2(0.7, 0.7), Vector2(0.9, 0.9), 0.05, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		$Tween.interpolate_property($Sprite, "scale", Vector2(0.9, 0.9), Vector2(0.7, 0.7), 0.15, Tween.TRANS_CUBIC, Tween.EASE_OUT, 0.05)
+		$Tween.start()
 
 func _on_Area2D_body_entered(body):
 	if _state == State.LAND and body.has_method("inflict_damage") and body.is_in_group("player"):

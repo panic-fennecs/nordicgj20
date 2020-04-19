@@ -78,6 +78,9 @@ func inflict_damage(dmg):
 		$"/root/Main/EnemyManager".remove_enemy(self)
 	else:
 		_blink_counter = 1.0
+		$Tween.interpolate_property($Sprite, "scale", Vector2(0.8, 0.8), Vector2(1.1, 1.1), 0.05, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		$Tween.interpolate_property($Sprite, "scale", Vector2(1.1, 1.1), Vector2(0.8, 0.8), 0.15, Tween.TRANS_CUBIC, Tween.EASE_OUT, 0.05)
+		$Tween.start()
 
 func apply_slow(slow, duration=3.0):
 	_slow = slow
