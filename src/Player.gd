@@ -4,8 +4,10 @@ const SPEED: float = 100.0
 const MAX_SPEED: float = 200.0
 const DRAG: float = 0.6
 const MAX_HEALTH: float = 1.0
-const DASH_SPEED: float = 1200.0
-const DASH_RANGE: float = 15000.0
+const DASH_SPEED: float = 1400.0
+const DASH_RANGE: float = 8000.0
+const DASH_DAMAGE_RADIUS: float = 40.0
+const DASH_DAMAGE: float = 0.2
 
 var _velocity: Vector2 = Vector2.ZERO
 var _looking_left: bool = false
@@ -46,6 +48,12 @@ func _input(event) -> void:
 func _process(delta: float) -> void:
 	if $"/root/Main".paused: return
 	$MouseIndicator.rect_global_position = get_global_mouse_position()
+	
+	if dash_direction:
+		for enemy in $"/root/Main/EnemyManager".get_enemies():
+			var v = enemy.global_position - global_position
+			if v.length_squared() <= DASH_DAMAGE_RADIUS * DASH_DAMAGE_RADIUS:
+				enemy.inflict_damage(DASH_DAMAGE)
 
 func _physics_process(delta: float) -> void:
 	if $"/root/Main".paused: return
@@ -88,7 +96,10 @@ func set_health(new_health):
 	_try_loose()
 
 func inflict_damage(damage):
-	set_health(health - damage)
+	if dash_direction:
+		pass
+	else:
+		set_health(health - damage)
 
 func heal(h):
 	set_health(health + h)
