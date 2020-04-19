@@ -36,6 +36,11 @@ func _jump() -> void:
 	if _state_changed:
 		_state_changed = false
 		_target = $"/root/Main/YSort/Player".position
+		_target.x += randf() * 200 - 100
+		_target.y += randf() * 200 - 100
+		var v = _target - position
+		var l = v.length()
+		_target = position + v.normalized() * min(300, l)
 		_jump_start = position
 		$Area2D/CollisionShape2D.disabled = true
 		
