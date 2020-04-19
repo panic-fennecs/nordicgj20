@@ -1,7 +1,7 @@
 extends "res://src/Enemy.gd"
 
 const ATTACK_TRIGGER_RANGE = 200.0
-const ATTACK_COOLDOWN = 4.0
+const ATTACK_COOLDOWN = 1.0
 
 var cooldown = 0.0
 
