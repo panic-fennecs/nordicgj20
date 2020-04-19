@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/StartScreen.gd" type="Script" id=1]
 [ext_resource path="res://src/StartScreenPressSpaceLabel.gd" type="Script" id=2]
+[ext_resource path="res://res/Unbenanntes_Projekt.jpg" type="Texture" id=3]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
@@ -10,22 +11,18 @@ script = ExtResource( 1 )
 position = Vector2( 471.119, 280.666 )
 scale = Vector2( 2, 2 )
 
-[node name="Label" type="Label" parent="Node2D"]
-margin_right = 165.0
-margin_bottom = 14.0
-text = "Everyday Magic (cards)"
-align = 1
-valign = 1
-uppercase = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Sprite" type="Sprite" parent="Node2D"]
+position = Vector2( 84.4339, 36.0504 )
+scale = Vector2( 0.494523, 0.483488 )
+texture = ExtResource( 3 )
 
 [node name="Label2" type="Label" parent="Node2D"]
-margin_left = -7.15991
-margin_top = 59.427
-margin_right = 172.84
-margin_bottom = 73.427
+modulate = Color( 0, 0, 0, 1 )
+margin_left = -109.799
+margin_top = 110.747
+margin_right = 70.201
+margin_bottom = 124.747
+rect_scale = Vector2( 2, 2 )
 text = "press space to start"
 align = 1
 valign = 1
