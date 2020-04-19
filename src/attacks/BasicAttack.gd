@@ -15,7 +15,6 @@ func setup(direction: Vector2):
 	_normalized_direction = direction.normalized()
 	set_collision_layer_bit(pow(2, custom_collision_layer), true)
 	set_collision_mask_bit(pow(2, custom_collision_mask), true)
-	set_scale(get_scale() * card_size)
 	
 func _ready():
 	var player = $"/root/Main/YSort/Player"

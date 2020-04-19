@@ -72,6 +72,7 @@ func shoot():
 	$"/root/Main/".add_child(p)
 
 func inflict_damage(dmg):
+	$"/root/Main/Camera2D".shake()
 	health -= dmg
 	if health <= 0.0:
 		$"/root/Main/EnemyManager".remove_enemy(self)

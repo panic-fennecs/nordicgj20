@@ -7,3 +7,13 @@ func _ready():
 	
 func _physics_process(delta: float) -> void:
 	position = _player.position
+	
+	var shake_offset: float = 0.0
+	if !$Timer.is_stopped():
+		shake_offset = sin(($Timer.wait_time - $Timer.time_left) * 80.0) * 40.0
+
+	position = _player.position
+	position.y += shake_offset
+
+func shake() -> void:
+	$Timer.start()

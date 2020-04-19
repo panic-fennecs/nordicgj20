@@ -16,7 +16,11 @@ var health: float = MAX_HEALTH
 var damage_cooldown = 0
 
 func rand_direction():
-	return Vector2(randf() - 0.5, randf() - 0.5).normalized()
+	var v = Vector2(randf() - 0.5, randf() - 0.5).normalized()
+	var to_player = ($"/root/Main/YSort/Player".global_position - global_position).normalized()
+	var f = randf()
+	v = v * f + to_player * (1.0-f)
+	return v.normalized()
 
 func _ready():
 	dash_direction = rand_direction()
@@ -72,6 +76,7 @@ func make_agro():
 	self.modulate = Color.orangered
 
 func inflict_damage(dmg):
+	$"/root/Main/Camera2D".shake()
 	health -= dmg
 	if health <= 0.0:
 		$"/root/Main/EnemyManager".remove_enemy(self)
