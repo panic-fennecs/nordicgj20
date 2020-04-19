@@ -5,6 +5,8 @@ var scenes = [
 	preload("res://src/levels/Level1.tscn"),
 	preload("res://src/levels/Level2.tscn"),
 	preload("res://src/levels/Level3.tscn"),
+	preload("res://src/levels/Level5.tscn"),
+	preload("res://src/levels/Level4.tscn"),
 ]
 var is_save_zone = true
 var current = null
@@ -38,6 +40,7 @@ func _load_next_level():
 		
 	if _is_save_zone():
 		current_index = (current_index + 1) % len(scenes)
+		print(current_index)
 		current = scenes[current_index].instance()
 		is_save_zone = false
 	else:
