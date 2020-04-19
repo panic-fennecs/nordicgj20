@@ -200,8 +200,13 @@ func die():
 
 func inflict_damage(dmg):
 	health -= dmg
+	$"/root/Main/Camera2D".shake()
 	if health <= 0:
 		die()
+	else:
+		$Tween.interpolate_property($Sprite, "scale", Vector2.ONE, Vector2(1.1, 1.1), 0.05, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		$Tween.interpolate_property($Sprite, "scale", Vector2(1.1, 1.1), Vector2.ONE, 0.15, Tween.TRANS_CUBIC, Tween.EASE_OUT, 0.05)
+		$Tween.start()
 
 func target_point_found():
 	pass

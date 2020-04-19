@@ -1,0 +1,15 @@
+[gd_scene format=2]
+
+[node name="EndScene" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+margin_left = 501.0
+margin_top = 306.0
+margin_right = 739.0
+margin_bottom = 354.0
+text = "Dies ist eine Gratulation.
+Sie ist hier, da Sie gewonnen haben...
+Das ist Grund zur Freude."
+__meta__ = {
+"_edit_use_anchors_": false
+}
