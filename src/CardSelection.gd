@@ -5,6 +5,7 @@ const CARD_DISTANCE: float = 150.0
 var selectable_card_scene: PackedScene = preload("res://src/SelectableCard.tscn")
 var cards: Array = []
 var _menu_closing: bool = false
+var _selected_cards: Array = []
 
 func _ready() -> void:
 	if len($"/root/Main/".avaiable_cards) < 3:
@@ -19,6 +20,7 @@ func setup(avaiable_cards: Array = ["forest", "island", "mountain", "plains", "s
 	
 	for i in range(len(avaiable_cards)):
 		var selectable_card: Node = selectable_card_scene.instance()
+		selectable_card.connect("selection_changed", self, "_on_SelectableCard_selection_changed")
 		selectable_card.setup(avaiable_cards[i], already_banned[i])
 		$SelectionScreen.add_child(selectable_card)
 		selectable_card.position.x = - horizontal_size + center
@@ -40,13 +42,13 @@ func _process(_delta: float) -> void:
 				card.unselect()
 			
 	if $SelectionScreen.visible:
-		var cards_left = 0
+		var cards_selected = 0
 		for card in cards:
-			if not card.eliminated: cards_left += 1
+			if card.selected: cards_selected += 1
 		
-		$SelectionScreen/CardsLeftLabel.text = str(cards_left - 2) + " cards left to eliminate."
+		$SelectionScreen/CardsLeftLabel.text = "Cards to select: " + str(2 - cards_selected)
 		
-		if cards_left - 2 == 0 and not _menu_closing:
+		if cards_selected == 2 and not _menu_closing:
 			_menu_closing = true
 			$SpaceBar.visible = true
 			$Tween.interpolate_property($SelectionScreen, "scale", Vector2.ONE, Vector2.ZERO, 0.5, Tween.TRANS_CIRC, Tween.EASE_IN)
@@ -60,8 +62,13 @@ func _on_Tween_tween_completed(object, key):
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 		$"/root/Main".paused = false
 		
-		var selected: Array = []
-		for card in cards:
-			if not card.eliminated: selected.append(card.type)
+		var selection = _selected_cards
+		print("selection ", selection)
+		$"/root/Main/CardManager".select_cards(selection)
+
+func _on_SelectableCard_selection_changed(type, selected) -> void:
+	if selected:
+		_selected_cards.append(type)
+	else:
+		_selected_cards.erase(type)
 		
-		$"/root/Main/CardManager".select_cards(selected)

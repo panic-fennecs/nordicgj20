@@ -27,6 +27,6 @@ func ban_cards() -> void:
 				selection_after_ban.append(avaiable_cards[i])
 			if len(selection_after_ban) > 2:
 				break
-		
+				
 		$"/root/Main/CardManager".select_cards(selection_after_ban)
 			

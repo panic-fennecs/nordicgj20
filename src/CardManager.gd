@@ -16,7 +16,7 @@ func _process(delta):
 			cooldowns[i] = 0
 
 func select_cards(arg):
-	cards = arg
+	cards = [] + arg
 
 func throw_card(direction, x):
 	if cooldowns[x] == 0:
