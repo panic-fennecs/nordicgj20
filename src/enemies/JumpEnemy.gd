@@ -115,8 +115,8 @@ func _change_state(state) -> void:
 		State.LAND:
 			$"/root/Main/Camera2D".shake()
 			$"DamageSprite".visible = true
-			collision_mask = 2
-			collision_layer = 20
+			collision_mask = 20
+			collision_layer = 2
 		State.JUMP:
 			collision_mask = 0
 			collision_layer = 0

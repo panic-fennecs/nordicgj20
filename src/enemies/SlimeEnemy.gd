@@ -65,7 +65,7 @@ func _process(delta):
 		self.visible = true
 
 func _handle_collision(col):
-	if col.collider.has_method("inflict_damage") and damage_cooldown == 0:
+	if col.collider.is_in_group("player") and damage_cooldown == 0:
 		damage_cooldown = DAMAGE_COOLDOWN
 		col.collider.inflict_damage(DAMAGE)
 		make_agro()
