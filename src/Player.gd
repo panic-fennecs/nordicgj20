@@ -17,6 +17,7 @@ signal health_changed(new_health)
 
 var dash_dist = null
 var dash_direction = null
+var dash_dmg_list = null
 
 func _ready():
 	emit_signal("health_changed", health) # TODO: _on_health_changed() not implemented
@@ -51,10 +52,14 @@ func _process(delta: float) -> void:
 	$MouseIndicator.rect_global_position = get_global_mouse_position()
 	
 	if dash_direction:
+		$CPUParticles2D.emitting = true
+		$Timer.start()
 		for enemy in $"/root/Main/EnemyManager".get_enemies():
 			var v = enemy.global_position - global_position
 			if v.length_squared() <= DASH_DAMAGE_RADIUS * DASH_DAMAGE_RADIUS:
-				enemy.inflict_damage(DASH_DAMAGE)
+				if not enemy in dash_dmg_list:
+					enemy.inflict_damage(DASH_DAMAGE)
+					dash_dmg_list.push_back(enemy)
 
 func _physics_process(delta: float) -> void:
 	if $"/root/Main".paused: return
@@ -76,6 +81,7 @@ func _physics_process(delta: float) -> void:
 			dash_dist = null
 			dash_direction = null
 			set_collision_layer_bit(0, true)
+			dash_dmg_list = null
 		_velocity = move_and_slide(_velocity)
 		# TODO add "dash" animation
 	else:
@@ -98,6 +104,7 @@ func set_health(new_health):
 	_try_loose()
 
 func inflict_damage(damage):
+	$"/root/Main/Camera2D".shake()
 	if dash_direction:
 		pass
 	else:
@@ -115,6 +122,7 @@ func dash():
 	dash_direction = walk_dir()
 	dash_dist = DASH_RANGE
 	set_collision_layer_bit(0, false)
+	dash_dmg_list = []
 
 func _on_Sprite_animation_finished():
 	match $Sprite.animation:
@@ -124,3 +132,8 @@ func _on_Sprite_animation_finished():
 		"attack_run":
 			$Sprite.play("run")
 			_attack_anim = false
+
+
+func _on_Timer_timeout():
+	$CPUParticles2D.emitting = false
+	$Timer.stop()
