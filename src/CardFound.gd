@@ -4,11 +4,11 @@ var closing: bool = false
 
 func setup(card_type) -> void:
 	match card_type:
-		"forest": $NodeGroup/DescriptionLabel.text = "Heal"
-		"island": $NodeGroup/DescriptionLabel.text = "Stun"
-		"mountain": $NodeGroup/DescriptionLabel.text = "Fireball"
-		"plains": $NodeGroup/DescriptionLabel.text = "Dash"
-		"swamp": $NodeGroup/DescriptionLabel.text = "Area Attack"
+		"forest": $NodeGroup/CardName.text = "Heal"
+		"island": $NodeGroup/CardName.text = "Stun"
+		"mountain": $NodeGroup/CardName.text = "Fireball"
+		"plains": $NodeGroup/CardName.text = "Dash"
+		"swamp": $NodeGroup/CardName.text = "Area Attack"
 
 	$NodeGroup/Sprite.texture = load("res://res/cards/" + card_type + ".png")
 
