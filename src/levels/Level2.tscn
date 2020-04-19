@@ -10,6 +10,7 @@
 pause_mode = 2
 position = Vector2( 0, -141.19 )
 script = ExtResource( 6 )
+new_card = "island"
 
 [node name="CardSelection" parent="." instance=ExtResource( 1 )]
 

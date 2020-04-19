@@ -7,10 +7,13 @@ var cards: Array = []
 var _menu_closing: bool = false
 
 func _ready() -> void:
-	setup()
-	$SelectionScreen.pause_mode = PAUSE_MODE_STOP
+	if len($"/root/Main/".avaiable_cards) < 3:
+		$SpaceBar.visible = false
+		$"/root/Main/CardManager".select_cards($"/root/Main/".avaiable_cards)
+	else:
+		setup($"/root/Main/".avaiable_cards, $"/root/Main/".banned_cards)
 
-func setup(avaiable_cards: Array = ["forest", "island", "mountain", "plains", "swamp"], already_banned: Array = [false, false, false, true, false]):
+func setup(avaiable_cards: Array = ["forest", "island", "mountain", "plains", "swamp"], already_banned: Array = [false, false, false, false, false]):
 	var horizontal_size: float = len(avaiable_cards) * CARD_DISTANCE
 	var center: float = horizontal_size / 2 + (CARD_DISTANCE / 2)
 	
@@ -23,9 +26,11 @@ func setup(avaiable_cards: Array = ["forest", "island", "mountain", "plains", "s
 		cards.append(selectable_card)
 
 func _process(_delta: float) -> void:
+	if len($"/root/Main/".avaiable_cards) < 3: return
 	if Input.is_action_just_pressed("space"):
 		if not $SelectionScreen.visible:
-			$SelectionScreen.pause_mode = PAUSE_MODE_PROCESS
+			$"/root/Main".paused = true
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			$SelectionScreen.scale = Vector2.ZERO
 			$SelectionScreen.visible = true
 			$SpaceBar.visible = false
@@ -43,7 +48,6 @@ func _process(_delta: float) -> void:
 		
 		if cards_left - 2 == 0 and not _menu_closing:
 			_menu_closing = true
-			$SelectionScreen.pause_mode = PAUSE_MODE_STOP
 			$SpaceBar.visible = true
 			$Tween.interpolate_property($SelectionScreen, "scale", Vector2.ONE, Vector2.ZERO, 0.5, Tween.TRANS_CIRC, Tween.EASE_IN)
 			$Tween.start()
@@ -53,3 +57,11 @@ func _on_Tween_tween_completed(object, key):
 	if _menu_closing == true:
 		$SelectionScreen.visible = false
 		_menu_closing = false
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+		$"/root/Main".paused = false
+		
+		var selected: Array = []
+		for card in cards:
+			if not card.eliminated: selected.append(card.type)
+		
+		$"/root/Main/CardManager".select_cards(selected)

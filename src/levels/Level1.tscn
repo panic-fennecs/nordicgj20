@@ -8,9 +8,10 @@
 [ext_resource path="res://src/levels/Level.gd" type="Script" id=6]
 [ext_resource path="res://src/enemies/RangedEnemy.tscn" type="PackedScene" id=7]
 
-[node name="Level0" type="Node2D"]
+[node name="Level1" type="Node2D"]
 position = Vector2( 0, -214.958 )
 script = ExtResource( 6 )
+new_card = "forest"
 
 [node name="Ground" type="TileMap" parent="."]
 tile_set = ExtResource( 5 )

@@ -8,6 +8,7 @@ func _ready():
 	pass
 
 func _physics_process(delta):
+	if $"/root/Main".paused: return
 	var col = move_and_collide(speed * delta)
 	if col:
 		if col.collider.has_method("inflict_damage"):
