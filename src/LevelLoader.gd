@@ -43,7 +43,7 @@ func _load_next_level():
 	else:
 		current = save_zone.instance()
 		is_save_zone = true
-		$"/root/Main".ban_cards()
+		#$"/root/Main".ban_cards()
 		
 	add_child(current)
 	$"/root/Main/YSort/Player".position = Vector2(0, 0)
