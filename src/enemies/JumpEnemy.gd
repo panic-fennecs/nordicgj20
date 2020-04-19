@@ -121,6 +121,7 @@ func _change_state(state) -> void:
 			collision_layer = 0
 
 func inflict_damage(dmg):
+	$"/root/Main/Camera2D".shake()
 	_health -= dmg
 	print('health: ', _health)
 	if _health <= 0.0:

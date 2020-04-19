@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/attacks/MountainAttack.gd" type="Script" id=1]
 [ext_resource path="res://res/cards/card_throw.png" type="Texture" id=2]
+[ext_resource path="res://src/attacks/CardParticles.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 53, 34 )
+extents = Vector2( 13.408, 8.43353 )
 
 [node name="MountainAttack" type="KinematicBody2D"]
 collision_layer = 4
@@ -17,4 +18,10 @@ shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 rotation = 4.71239
+scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 2 )
+
+[node name="CPUParticles2D" parent="." instance=ExtResource( 3 )]
+amount = 4
+lifetime = 0.5
+speed_scale = 1.5

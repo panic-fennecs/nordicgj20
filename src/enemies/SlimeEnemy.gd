@@ -76,6 +76,7 @@ func make_agro():
 	self.modulate = Color.orangered
 
 func inflict_damage(dmg):
+	$"/root/Main/Camera2D".shake()
 	health -= dmg
 	if health <= 0.0:
 		$"/root/Main/EnemyManager".remove_enemy(self)

@@ -51,6 +51,8 @@ func _process(delta: float) -> void:
 	$MouseIndicator.rect_global_position = get_global_mouse_position()
 	
 	if dash_direction:
+		$CPUParticles2D.emitting = true
+		$Timer.start()
 		for enemy in $"/root/Main/EnemyManager".get_enemies():
 			var v = enemy.global_position - global_position
 			if v.length_squared() <= DASH_DAMAGE_RADIUS * DASH_DAMAGE_RADIUS:
@@ -101,6 +103,7 @@ func set_health(new_health):
 	_try_loose()
 
 func inflict_damage(damage):
+	$"/root/Main/Camera2D".shake()
 	if dash_direction:
 		pass
 	else:
@@ -128,3 +131,8 @@ func _on_Sprite_animation_finished():
 		"attack_run":
 			$Sprite.play("run")
 			_attack_anim = false
+
+
+func _on_Timer_timeout():
+	$CPUParticles2D.emitting = false
+	$Timer.stop()

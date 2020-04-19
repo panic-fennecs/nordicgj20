@@ -8,6 +8,7 @@ var _stun_animation_scene = preload("res://src/attacks/hit_animations/SlowAnimat
 
 func setup(direction : Vector2):
 	.setup(direction)
+	$CPUParticles2D.angle = -rad2deg(direction.normalized().angle())
 
 func process_hit(collider):
 	if not collider is TileMap:
