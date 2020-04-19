@@ -30,6 +30,7 @@ func walk_dir():
 	return direction
 
 func _input(event) -> void:
+	if $"/root/Main".paused: return
 	if event is InputEventMouseButton:
 		if event.is_pressed():
 			_attack_anim = true
@@ -43,9 +44,11 @@ func _input(event) -> void:
 			$"/root/Main/CardManager".throw_card($MouseIndicator.rect_position, x)
 
 func _process(delta: float) -> void:
+	if $"/root/Main".paused: return
 	$MouseIndicator.rect_global_position = get_global_mouse_position()
 
 func _physics_process(delta: float) -> void:
+	if $"/root/Main".paused: return
 	var direction = walk_dir()
 	
 	if _attack_anim == false:

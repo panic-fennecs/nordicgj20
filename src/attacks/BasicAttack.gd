@@ -17,12 +17,13 @@ func setup(direction: Vector2):
 	set_collision_mask_bit(pow(2, custom_collision_mask), true)
 	set_scale(get_scale() * card_size)
 	
-func _ready():	
+func _ready():
 	var player = $"/root/Main/YSort/Player"
 	global_position = player.global_position
 	look_at(global_position - _direction)
 	
 func _physics_process(delta):
+	if $"/root/Main".paused: return
 	var collision = move_and_collide(_normalized_direction * _speed * delta)
 
 	if collision:

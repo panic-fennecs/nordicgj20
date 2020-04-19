@@ -3,6 +3,8 @@ extends Node2D
 var save_zone = preload("res://src/levels/Level0.tscn")
 var scenes = [
 	preload("res://src/levels/Level1.tscn"),
+	preload("res://src/levels/Level2.tscn"),
+	preload("res://src/levels/Level3.tscn"),
 ]
 var is_save_zone = true
 var current = null
@@ -41,6 +43,7 @@ func _load_next_level():
 	else:
 		current = save_zone.instance()
 		is_save_zone = true
+		$"/root/Main".ban_cards()
 		
 	add_child(current)
 	$"/root/Main/YSort/Player".position = Vector2(0, 0)

@@ -38,6 +38,7 @@ func _on_timer_timeout():
 	queue_free()
 
 func _physics_process(delta):
+	if $"/root/Main".paused: return
 	var overlaps = get_node("Area2D").get_overlapping_bodies()
 	if (overlaps.size() > 0):
 		for body in overlaps:

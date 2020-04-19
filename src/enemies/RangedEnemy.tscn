@@ -4,7 +4,7 @@
 [ext_resource path="res://src/enemies/RangedEnemy.gd" type="Script" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 22.4185
+radius = 13.8373
 
 [node name="RangedEnemy" type="KinematicBody2D"]
 collision_layer = 2
@@ -13,8 +13,9 @@ script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -1.07545, -1.07546 )
+scale = Vector2( 0.6, 0.6 )
 texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 1.07545, -0.358482 )
+position = Vector2( 0.0754499, -0.358482 )
 shape = SubResource( 1 )

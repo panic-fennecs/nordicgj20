@@ -18,6 +18,7 @@ func _draw():
 	draw_circle(to_local(pos), AOE_RANGE, Color.black) # TODO make this drawing nicer
 
 func _process(delta):
+	if $"/root/Main".paused: return
 	lifetime -= delta
 	if lifetime <= 0:
 		queue_free()
